@@ -1,0 +1,897 @@
+--- generate data
+
+--- Bamenda
+--- join to metadata and matter tables, create views for subsequent analysis:
+
+---DROP VIEW dp_food_flow_bda_meta CASCADE;
+---DROP VIEW dp_food_flow_ouaga_meta CASCADE;
+---DROP VIEW dp_food_flow_bko_meta CASCADE;
+---DROP VIEW dp_food_flow_tle_meta CASCADE;
+
+CREATE VIEW dp_food_flow_bda_meta AS
+SELECT f1.ID, f1.sheet_number, f1.data_collection_name, f1.direction, f1.number, t.transport_new,
+f2.commodity_id, f2.commodity_name, f2.commodity_name_gen, f2.commodity_category, f1.quantity, f1.unit, f1.source, s1.spatial_category_revised AS source_category,
+s3.source_specification_corrected, f1.destination, s2.spatial_category_revised AS destination_category, f1.date, f1.time, m.year, m.season, m.daytime, m.no_days
+	FROM public.food_flow_bamenda f1
+	LEFT OUTER JOIN public.metadata_bda m
+	ON f1.sheet_number=m.sheet_number
+	LEFT OUTER JOIN public.location_characteristics_bda s1
+	ON f1.source=s1.id
+	LEFT OUTER JOIN public.location_characteristics_bda s2
+	ON f1.destination=s2.id
+	LEFT OUTER JOIN public.food_flow_matter f2
+	ON f1.type_of_matter=f2.commodity_id
+	LEFT OUTER JOIN public.source_specification s3
+	ON f1.source_specification=s3.source_specification
+	LEFT OUTER JOIN public.transport t
+	ON f1.transportation_system=t.transport_old
+	WHERE f1.id NOT IN (SELECT d.duplicate_id FROM public.duplicates_bda d)
+	;
+
+-- Volume & Density 
+
+CREATE VIEW dp_volume_dens_bda AS
+SELECT d.*, (SELECT a.volume_m3 FROM public.unit_volume_bda a WHERE d.unit=a.unit) AS Volume, 
+(SELECT b.density_kg_m3 FROM public.comm_density_bda b WHERE d.commodity_id=b.commodity_id) AS Density 
+	FROM dp_food_flow_bda_meta d;
+
+CREATE VIEW dp_volume_dens_bda1 AS
+SELECT v.ID, v.sheet_number, v.data_collection_name, v.direction, v.number, v.transport_new, 
+v.commodity_id, v.commodity_name, v.commodity_name_gen, v.commodity_category, v.quantity, v.unit, v.source, 
+v.source_category, v.source_specification_corrected, v.destination, v.destination_category, v.date, v.time, v.year, v.season, v.daytime, v.no_days, v.Volume*v.Density AS unit_quantity
+	FROM dp_volume_dens_bda v;
+
+-- combinations
+
+CREATE VIEW dp_comb_bda AS
+SELECT d.*, c.quantity_kg_no_livestock
+	FROM dp_food_flow_bda_meta d, public.commodities_units_bda c
+	WHERE d.commodity_id=c.commodity_id
+	AND d.unit=c.unit;	
+
+--- kg, tonnes, articulators
+
+CREATE VIEW dp_art_kg_tonne_bda AS
+SELECT d.*, c.quantity_kg_no_livestock
+	FROM dp_food_flow_bda_meta d, public.commodities_kg_tonne_art_bda c
+	WHERE d.unit=c.unit
+	AND d.commodity_category <> 'Livestock';
+
+CREATE VIEW dp_food_flow_bda_unit_quantity_incl_Nullvalues AS 
+SELECT *
+	FROM dp_volume_dens_bda1 v
+	WHERE v.ID NOT IN (SELECT c.ID FROM dp_comb_bda c)
+	AND v.ID NOT IN (SELECT a.ID FROM dp_art_kg_tonne_bda a)
+UNION ALL
+SELECT *
+	FROM dp_comb_bda
+UNION ALL
+SELECT *
+	FROM dp_art_kg_tonne_bda;
+
+CREATE VIEW dp_food_flow_bda_incl_Nullvalues_total_daily_quantity AS 
+SELECT *, unit_quantity*quantity AS total_quantity, unit_quantity*quantity/no_days AS daily_quantity
+	FROM dp_food_flow_bda_unit_quantity_incl_Nullvalues;
+
+
+----------------------------------
+
+--- Bamako
+--- join to metadata and matter tables, create views for subsequent analysis:
+
+CREATE VIEW dp_food_flow_bko_meta AS
+SELECT f1.ID, f1.sheet_number, f1.data_collection_name, f1.direction, f1.number, t.transport_new, 
+f2.commodity_id, f2.commodity_name, f2.commodity_name_gen, f2.commodity_category, f1.quantity, f1.unit, f1.source, s1.spatial_category_revised AS source_category, s3.source_specification_corrected,
+f1.destination, s2.spatial_category_revised AS destination_category,  f1.date, f1.time, m.year, m.season, m.daytime, m.no_days
+	FROM public.food_flow_bamako f1
+	JOIN public.metadata_bko m
+	ON f1.sheet_number=m.sheet_number
+	LEFT OUTER JOIN public.location_characteristics_bko s1
+	ON f1.source=s1.id
+	LEFT OUTER JOIN public.location_characteristics_bko s2
+	ON f1.destination=s2.id
+	LEFT OUTER JOIN public.food_flow_matter f2
+	ON f1.type_of_matter=f2.commodity_id
+	LEFT OUTER JOIN public.source_specification s3
+	ON f1.source_specification=s3.source_specification
+	LEFT OUTER JOIN public.transport t
+	ON f1.transportation_system=t.transport_old
+	WHERE f1.id NOT IN (SELECT d.duplicate_id FROM public.duplicates_bko d);
+
+-- Volume & Density 
+
+CREATE VIEW dp_volume_dens_bko AS
+SELECT d.*, (SELECT a.volume_m3 FROM public.unit_volume_bko a WHERE d.unit=a.unit) AS Volume, 
+(SELECT b.density_kg_m3 FROM public.comm_density_bko b WHERE d.commodity_id=b.commodity_id) AS Density 
+	FROM dp_food_flow_bko_meta d;
+
+CREATE VIEW dp_volume_dens_bko1 AS
+
+SELECT v.ID, v.sheet_number, v.data_collection_name, v.direction, v.number, v.transport_new, 
+v.commodity_id, v.commodity_name, v.commodity_name_gen, v.commodity_category, v.quantity, v.unit, v.source, v.source_category,
+v.source_specification_corrected, v.destination, v.destination_category, v.date, v.time, v.year, v.season, v.daytime, v.no_days, v.Volume*v.Density AS unit_quantity
+	FROM dp_volume_dens_bko v;
+
+-- combinations
+
+CREATE VIEW dp_comb_bko AS
+SELECT d.*, c.quantity_kg_no_livestock
+	FROM dp_food_flow_bko_meta d, public.commodities_units_bko c
+	WHERE d.commodity_id=c.commodity_id
+	AND d.unit=c.unit;	
+
+--- kg, tonnes, articulators
+
+CREATE VIEW dp_art_kg_tonne_bko AS
+SELECT d.*, c.quantity_kg_no_livestock
+	FROM dp_food_flow_bko_meta d, public.commodities_kg_tonne_art_bko c
+	WHERE d.unit=c.unit
+	AND d.commodity_category <> 'Livestock';
+
+CREATE VIEW dp_food_flow_bko_unit_quantity_incl_Nullvalues AS 
+	SELECT *
+	FROM dp_volume_dens_bko1 v
+	WHERE v.ID NOT IN (SELECT c.ID FROM dp_comb_bko c)
+	AND v.ID NOT IN (SELECT a.ID FROM dp_art_kg_tonne_bko a)
+UNION ALL
+	SELECT *
+	FROM dp_comb_bko
+UNION ALL
+	SELECT *
+	FROM dp_art_kg_tonne_bko;
+
+CREATE VIEW dp_food_flow_bko_incl_Nullvalues_total_daily_quantity AS 
+	SELECT *, unit_quantity*quantity AS total_quantity, unit_quantity*quantity/no_days AS daily_quantity
+	FROM dp_food_flow_bko_unit_quantity_incl_Nullvalues;
+
+-------------------------------
+
+--- Ouagadougou
+--- join to metadata and matter, create views for subsequent analysis:
+--- include secondary data here:
+
+---DROP VIEW dp_food_flow_ouaga_meta_locations CASCADE
+
+CREATE VIEW dp_food_flow_ouaga_meta_locations AS
+SELECT f1.ID, f1.sheet_number_new, f1.data_collection_name, f1.direction, f1.number, f1.transportation_system, 
+f2.commodity_id, f2.commodity_name, f2.commodity_name_gen, f2.commodity_category, f1.quantity, f1.unit, f1.source AS source_location, 
+f1.source_specification, f1.destination AS destination_location, f1.date, f1.time, m.year, m.season, m.daytime, m.no_days
+	FROM public.food_flow_ouaga f1, public.metadata_ouaga m, public.food_flow_matter f2
+	WHERE f1.type_of_matter=f2.commodity_id
+	AND f1.sheet_number_new=m.sheet_number
+UNION ALL
+SELECT f1.id, f1.sheet_number_new, f1.data_collection_name, f1.direction, f1.number, f1.transportation_system, 
+f2.commodity_id, f2.commodity_name, f2.commodity_name_gen, f2.commodity_category, f1.quantity, f1.unit, f1.source AS source_location, 
+f1.source_specification, f1.destination AS destination_location, f1.date, f1.time, m.year, m.season, m.daytime, m.no_days
+FROM public.sec_data_ouaga f1, public.metadata_ouaga m, public.food_flow_matter f2
+	WHERE f1.type_of_matter=f2.commodity_id
+	AND f1.sheet_number_new=m.sheet_number;
+
+
+CREATE VIEW dp_food_flow_ouaga_meta_locations_loumbila AS
+SELECT f.*, l1.assigned_source_id AS source_loumbila, l2.assigned_destination_id AS destination_loumbila
+FROM dp_food_flow_ouaga_meta_locations f, public.loumbila_data_ouaga l1, public.loumbila_data_ouaga l2
+WHERE f.ID=l1.ID
+AND f.ID=l2.ID;
+
+CREATE VIEW dp_food_flow_ouaga_meta_wo_spatial_cat AS 
+SELECT f.ID, f.sheet_number_new, f.data_collection_name, f.direction, f.number, f.transportation_system, 
+f.commodity_id, f.commodity_name, f.commodity_name_gen, f.commodity_category, f.quantity, f.unit, f.source_location AS source, 
+f.source_specification, f.destination_location AS destination, f.date, f.time, f.year, f.season, f.daytime, f.no_days
+	FROM dp_food_flow_ouaga_meta_locations f
+WHERE f.ID NOT IN (SELECT ID FROM dp_food_flow_ouaga_meta_locations_loumbila)
+UNION ALL
+SELECT l.ID, l.sheet_number_new, l.data_collection_name, l.direction, l.number, l.transportation_system, 
+l.commodity_id, l.commodity_name, l.commodity_name_gen, l.commodity_category, l.quantity, l.unit, l.source_loumbila AS source, 
+l.source_specification, l.destination_loumbila AS destination, l.date, l.time, l.year, l.season, l.daytime, l.no_days
+	FROM dp_food_flow_ouaga_meta_locations_loumbila l;
+
+CREATE VIEW dp_food_flow_ouaga_meta AS
+SELECT f.ID, f.sheet_number_new, f.data_collection_name, f.direction, f.number, t.transport_new, 
+f.commodity_id, f.commodity_name, f.commodity_name_gen, f.commodity_category, f.quantity, f.unit, f.source, s1.spatial_category_revised AS source_category,
+s3.source_specification_corrected, f.destination, s2.spatial_category_revised AS destination_category, f.date, f.time, f.year, f.season, f.daytime, f.no_days
+	FROM dp_food_flow_ouaga_meta_wo_spatial_cat f
+	LEFT OUTER JOIN public.location_characteristics_ouaga s1
+	ON f.source=s1.id
+	LEFT OUTER JOIN public.location_characteristics_ouaga s2
+	ON f.destination=s2.id
+	LEFT OUTER JOIN public.source_specification s3
+	ON f.source_specification=s3.source_specification
+	LEFT OUTER JOIN public.transport t
+	ON f.transportation_system=t.transport_old;
+
+-- Volume & Density 
+
+CREATE VIEW dp_volume_dens_ouaga AS
+SELECT d.*, (SELECT a.volume_m3 FROM public.unit_volume_ouaga a WHERE d.unit=a.unit) AS Volume, 
+(SELECT b.density_kg_m3 FROM public.comm_density_ouaga b WHERE d.commodity_id=b.commodity_id) AS Density 
+	FROM dp_food_flow_ouaga_meta d;
+
+CREATE VIEW dp_volume_dens_ouaga1 AS
+SELECT v.ID, v.sheet_number_new, v.data_collection_name, v.direction, v.number, v.transport_new, 
+v.commodity_id, v.commodity_name, v.commodity_name_gen, v.commodity_category, v.quantity, v.unit, v.source, v.source_category,
+v.source_specification_corrected, v.destination, v.destination_category, v.date, v.time, v.year, v.season, v.daytime, v.no_days, v.Volume*v.Density AS unit_quantity
+	FROM dp_volume_dens_ouaga v;
+
+-- combinations
+
+CREATE VIEW dp_comb_ouaga AS
+SELECT d.*, c.quantity_kg_no_livestock
+	FROM dp_food_flow_ouaga_meta d, public.commodities_units_ouaga c
+	WHERE d.commodity_id=c.commodity_id
+	AND d.unit=c.unit;	
+
+--- kg, tonnes, articulators
+
+CREATE VIEW dp_art_kg_tonne_ouaga AS
+SELECT d.*, c.quantity_kg_no_livestock
+	FROM dp_food_flow_ouaga_meta d, public.commodities_kg_tonne_art_ouaga c
+	WHERE d.unit=c.unit
+	AND d.commodity_category <> 'Livestock';
+
+CREATE VIEW dp_food_flow_ouaga_unit_quantity_incl_Nullvalues AS 
+	SELECT *
+	FROM dp_volume_dens_ouaga1 v
+	WHERE v.ID NOT IN (SELECT c.ID FROM dp_comb_ouaga c)
+	AND v.ID NOT IN (SELECT a.ID FROM dp_art_kg_tonne_ouaga a)
+UNION ALL
+	SELECT *
+	FROM dp_comb_ouaga
+UNION ALL
+	SELECT *
+	FROM dp_art_kg_tonne_ouaga;
+
+CREATE VIEW dp_food_flow_ouaga_incl_Nullvalues_total_daily_quantity AS 
+	SELECT *, unit_quantity*quantity AS total_quantity, unit_quantity*quantity/no_days AS daily_quantity
+	FROM dp_food_flow_ouaga_unit_quantity_incl_Nullvalues;
+	
+---------------------------
+
+--- Tamale
+--- join to metadata and matter tables, create views for subsequent analysis:
+
+CREATE VIEW dp_food_flow_tle_meta AS
+SELECT f1.ID, f1.sheet_number_new, f1.data_collection_name, f1.direction, f1.number, t.transport_new, 
+f2.commodity_id, f2.commodity_name, f2.commodity_name_gen, f2.commodity_category, f1.quantity, f1.unit, f1.source, s1.spatial_category_revised AS source_category, 
+s3.source_specification_corrected, f1.destination, s2.spatial_category_revised AS destination_category, f1.date, f1.time, m.year, m.season, m.daytime, m.no_days
+	FROM public.food_flow f1
+	LEFT OUTER JOIN public.metadata_tle m
+	ON f1.sheet_number_new=m.sheet_number
+	LEFT OUTER JOIN public.location_characteristics_tle s1
+	ON f1.source=s1.id
+	LEFT OUTER JOIN public.location_characteristics_tle s2
+	ON f1.destination=s2.id
+	LEFT OUTER JOIN public.food_flow_matter f2
+	ON f1.type_of_matter=f2.commodity_id
+	LEFT OUTER JOIN public.source_specification s3
+	ON f1.source_specification=s3.source_specification
+	LEFT OUTER JOIN public.transport t
+	ON f1.transportation_system=t.transport_old
+	WHERE f1.id NOT IN (SELECT d.duplicate_id FROM public.duplicates_tle d);
+
+-- Volume & Density 
+
+CREATE VIEW dp_volume_dens_tle AS
+SELECT d.*, (SELECT a.volume_m3 FROM public.unit_volume_tle a WHERE d.unit=a.unit) AS Volume, 
+(SELECT b.density_kg_m3 FROM public.comm_density_tle b WHERE d.commodity_id=b.commodity_id) AS Density 
+	FROM dp_food_flow_tle_meta d;
+
+CREATE VIEW dp_volume_dens_tle1 AS
+
+SELECT v.ID, v.sheet_number_new, v.data_collection_name, v.direction, v.number, v.transport_new, 
+v.commodity_id, v.commodity_name, v.commodity_name_gen, v.commodity_category, v.quantity, v.unit, v.source, v.source_category,
+v.source_specification_corrected, v.destination, v.destination_category, v.date, v.time, v.year, v.season, v.daytime, v.no_days, v.Volume*v.Density AS unit_quantity
+	FROM dp_volume_dens_tle v;
+
+-- combinations
+
+CREATE VIEW dp_comb_tle AS
+SELECT d.*, c.quantity_kg_no_livestock
+	FROM dp_food_flow_tle_meta d, public.commodities_units_tle c
+	WHERE d.commodity_id=c.commodity_id
+	AND d.unit=c.unit;	
+
+--- kg, tonnes, articulators
+
+CREATE VIEW dp_art_kg_tonne_tle AS
+SELECT d.*, c.quantity_kg_no_livestock
+	FROM dp_food_flow_tle_meta d, public.commodities_kg_tonne_art_tle c
+	WHERE d.unit=c.unit
+	AND d.commodity_category <> 'Livestock';
+
+CREATE VIEW dp_food_flow_tle_unit_quantity_incl_Nullvalues AS 
+	SELECT *
+	FROM dp_volume_dens_tle1 v
+	WHERE v.ID NOT IN (SELECT c.ID FROM dp_comb_tle c)
+	AND v.ID NOT IN (SELECT a.ID FROM dp_art_kg_tonne_tle a)
+UNION ALL
+	SELECT *
+	FROM dp_comb_tle
+UNION ALL
+	SELECT *
+	FROM dp_art_kg_tonne_tle;
+
+CREATE VIEW dp_food_flow_tle_incl_Nullvalues_total_daily_quantity AS 
+	SELECT *, unit_quantity*quantity AS total_quantity, unit_quantity*quantity/no_days AS daily_quantity
+	FROM dp_food_flow_tle_unit_quantity_incl_Nullvalues;
+
+-----------------------
+-----------------------
+
+--- Subset with relevant products
+
+Create View dp_food_flow_tle_incl_Nullvalues_total_daily_quantity_sel_comm AS
+SELECT *
+	FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity
+	WHERE commodity_name_gen = 'Avocado' OR commodity_name_gen = 'Bambara beans' OR commodity_name_gen = 'Banana' OR commodity_name_gen = 'Bean' OR commodity_name_gen
+ = 'Cabbage' OR commodity_name_gen = 'Carrot' OR commodity_name_gen = 'Cassava' OR commodity_name_gen = 'Cattle' OR commodity_name_gen = 'Chicken' OR 
+ commodity_name_gen = 'Chilli pepper' OR commodity_name_gen = 'Cowpea' OR commodity_name_gen = 'Cucumber' OR commodity_name_gen = 'Eggplant' OR commodity_name_gen = 'Fish'
+ OR commodity_name_gen = 'Goat' OR commodity_name_gen = 'Green bean' OR commodity_name_gen = 'Groundnut' OR commodity_name_gen = 'Guinew fowl' OR 
+ commodity_name_gen = 'Maize' OR commodity_name_gen = 'Mango' OR commodity_name_gen = 'Millet' OR commodity_name_gen = 'Okra' OR commodity_name_gen = 'Onion' OR 
+ commodity_name_gen = 'Orange' OR commodity_name_gen = 'Pineapple' OR commodity_name_gen = 'Plantain' OR commodity_name_gen = 'Potato' OR commodity_name_gen = 'Rice' 
+ OR commodity_name_gen = 'Sheep' OR commodity_name_gen = 'Sorghum' OR commodity_name_gen = 'Spring onion' OR commodity_name_gen = 'Sweet pepper' OR 
+ commodity_name_gen = 'Sweet potato' OR commodity_name_gen = 'Tomato' OR commodity_name_gen = 'Watermelon' OR commodity_name_gen = 'Yam' OR commodity_name_gen = 'Zucchini' OR 
+ commodity_name_gen = 'Wheat' OR commodity_name_gen = 'Wheat flour' OR commodity_name_gen = 'Soybean' OR commodity_name_gen = 'Gari' OR commodity_name_gen = 'Cocoyam' OR
+ commodity_name_gen = 'Ginger' OR commodity_name_gen = 'Papaya' OR commodity_name_gen = 'Pig' OR commodity_name_gen = 'Leeks';
+
+Create View dp_food_flow_ouaga_incl_Nullvalues_total_daily_quantity_sel_comm AS
+SELECT *
+	FROM dp_food_flow_ouaga_incl_Nullvalues_total_daily_quantity
+	WHERE commodity_name_gen = 'Avocado' OR commodity_name_gen = 'Bambara beans' OR commodity_name_gen = 'Banana' OR commodity_name_gen = 'Bean' OR commodity_name_gen
+ = 'Cabbage' OR commodity_name_gen = 'Carrot' OR commodity_name_gen = 'Cassava' OR commodity_name_gen = 'Cattle' OR commodity_name_gen = 'Chicken' OR 
+ commodity_name_gen = 'Chilli pepper' OR commodity_name_gen = 'Cowpea' OR commodity_name_gen = 'Cucumber' OR commodity_name_gen = 'Eggplant' OR commodity_name_gen = 'Fish'
+ OR commodity_name_gen = 'Goat' OR commodity_name_gen = 'Green bean' OR commodity_name_gen = 'Groundnut' OR commodity_name_gen = 'Guinew fowl' OR 
+ commodity_name_gen = 'Maize' OR commodity_name_gen = 'Mango' OR commodity_name_gen = 'Millet' OR commodity_name_gen = 'Okra' OR commodity_name_gen = 'Onion' OR 
+ commodity_name_gen = 'Orange' OR commodity_name_gen = 'Pineapple' OR commodity_name_gen = 'Plantain' OR commodity_name_gen = 'Potato' OR commodity_name_gen = 'Rice' 
+ OR commodity_name_gen = 'Sheep' OR commodity_name_gen = 'Sorghum' OR commodity_name_gen = 'Spring onion' OR commodity_name_gen = 'Sweet pepper' OR 
+ commodity_name_gen = 'Sweet potato' OR commodity_name_gen = 'Tomato' OR commodity_name_gen = 'Watermelon' OR commodity_name_gen = 'Yam' OR commodity_name_gen = 'Zucchini' OR 
+ commodity_name_gen = 'Wheat' OR commodity_name_gen = 'Wheat flour' OR commodity_name_gen = 'Soybean' OR commodity_name_gen = 'Gari' OR commodity_name_gen = 'Cocoyam' OR
+ commodity_name_gen = 'Ginger' OR commodity_name_gen = 'Papaya' OR commodity_name_gen = 'Pig' OR commodity_name_gen = 'Leeks';
+ 
+ Create View dp_food_flow_bda_incl_Nullvalues_total_daily_quantity_sel_comm AS
+SELECT *
+	FROM dp_food_flow_bda_incl_Nullvalues_total_daily_quantity
+	WHERE commodity_name_gen = 'Avocado' OR commodity_name_gen = 'Bambara beans' OR commodity_name_gen = 'Banana' OR commodity_name_gen = 'Bean' OR commodity_name_gen
+ = 'Cabbage' OR commodity_name_gen = 'Carrot' OR commodity_name_gen = 'Cassava' OR commodity_name_gen = 'Cattle' OR commodity_name_gen = 'Chicken' OR 
+ commodity_name_gen = 'Chilli pepper' OR commodity_name_gen = 'Cowpea' OR commodity_name_gen = 'Cucumber' OR commodity_name_gen = 'Eggplant' OR commodity_name_gen = 'Fish'
+ OR commodity_name_gen = 'Goat' OR commodity_name_gen = 'Green bean' OR commodity_name_gen = 'Groundnut' OR commodity_name_gen = 'Guinew fowl' OR 
+ commodity_name_gen = 'Maize' OR commodity_name_gen = 'Mango' OR commodity_name_gen = 'Millet' OR commodity_name_gen = 'Okra' OR commodity_name_gen = 'Onion' OR 
+ commodity_name_gen = 'Orange' OR commodity_name_gen = 'Pineapple' OR commodity_name_gen = 'Plantain' OR commodity_name_gen = 'Potato' OR commodity_name_gen = 'Rice' 
+ OR commodity_name_gen = 'Sheep' OR commodity_name_gen = 'Sorghum' OR commodity_name_gen = 'Spring onion' OR commodity_name_gen = 'Sweet pepper' OR 
+ commodity_name_gen = 'Sweet potato' OR commodity_name_gen = 'Tomato' OR commodity_name_gen = 'Watermelon' OR commodity_name_gen = 'Yam' OR commodity_name_gen = 'Zucchini' OR 
+ commodity_name_gen = 'Wheat' OR commodity_name_gen = 'Wheat flour' OR commodity_name_gen = 'Soybean' OR commodity_name_gen = 'Gari' OR commodity_name_gen = 'Cocoyam' OR
+ commodity_name_gen = 'Ginger' OR commodity_name_gen = 'Papaya' OR commodity_name_gen = 'Pig' OR commodity_name_gen = 'Leeks';
+
+Create View dp_food_flow_bko_incl_Nullvalues_total_daily_quantity_sel_comm AS
+SELECT *
+	FROM dp_food_flow_bko_incl_Nullvalues_total_daily_quantity
+	WHERE commodity_name_gen = 'Avocado' OR commodity_name_gen = 'Bambara beans' OR commodity_name_gen = 'Banana' OR commodity_name_gen = 'Bean' OR commodity_name_gen
+ = 'Cabbage' OR commodity_name_gen = 'Carrot' OR commodity_name_gen = 'Cassava' OR commodity_name_gen = 'Cattle' OR commodity_name_gen = 'Chicken' OR 
+ commodity_name_gen = 'Chilli pepper' OR commodity_name_gen = 'Cowpea' OR commodity_name_gen = 'Cucumber' OR commodity_name_gen = 'Eggplant' OR commodity_name_gen = 'Fish'
+ OR commodity_name_gen = 'Goat' OR commodity_name_gen = 'Green bean' OR commodity_name_gen = 'Groundnut' OR commodity_name_gen = 'Guinew fowl' OR 
+ commodity_name_gen = 'Maize' OR commodity_name_gen = 'Mango' OR commodity_name_gen = 'Millet' OR commodity_name_gen = 'Okra' OR commodity_name_gen = 'Onion' OR 
+ commodity_name_gen = 'Orange' OR commodity_name_gen = 'Pineapple' OR commodity_name_gen = 'Plantain' OR commodity_name_gen = 'Potato' OR commodity_name_gen = 'Rice' 
+ OR commodity_name_gen = 'Sheep' OR commodity_name_gen = 'Sorghum' OR commodity_name_gen = 'Spring onion' OR commodity_name_gen = 'Sweet pepper' OR 
+ commodity_name_gen = 'Sweet potato' OR commodity_name_gen = 'Tomato' OR commodity_name_gen = 'Watermelon' OR commodity_name_gen = 'Yam' OR commodity_name_gen = 'Zucchini' OR 
+ commodity_name_gen = 'Wheat' OR commodity_name_gen = 'Wheat flour' OR commodity_name_gen = 'Soybean' OR commodity_name_gen = 'Gari' OR commodity_name_gen = 'Cocoyam' OR
+ commodity_name_gen = 'Ginger' OR commodity_name_gen = 'Papaya' OR commodity_name_gen = 'Pig' OR commodity_name_gen = 'Leeks';
+
+--- convert livestock numbers into weight
+
+CREATE VIEW dp_food_flow_ouaga_incl_nullvalues_total_daily_quantity_ls_adjust AS
+SELECT *, 
+CASE 
+WHEN trim(from commodity_name_gen)='Goat'
+	Then daily_quantity*25
+WHEN trim(from commodity_name_gen)='Chicken'
+	Then daily_quantity*1.75
+WHEN trim(from commodity_name_gen)='Sheep'
+	Then daily_quantity*30
+WHEN trim(from commodity_name_gen)='Cattle'
+	Then daily_quantity*200
+WHEN trim(from commodity_name_gen)='Pig'
+	Then daily_quantity*42
+WHEN trim(from commodity_name_gen)='Guinew fowl'
+	Then daily_quantity*2
+ELSE daily_quantity
+END AS daily_quantity_ls_adjusted,
+CASE 
+WHEN trim(from commodity_name_gen)='Goat'
+	Then total_quantity*25
+WHEN trim(from commodity_name_gen)='Chicken'
+	Then total_quantity*1.75
+WHEN trim(from commodity_name_gen)='Sheep'
+	Then total_quantity*30
+WHEN trim(from commodity_name_gen)='Cattle'
+	Then total_quantity*200
+WHEN trim(from commodity_name_gen)='Pig'
+	Then total_quantity*42
+WHEN trim(from commodity_name_gen)='Guinew fowl'
+	Then total_quantity*2
+ELSE total_quantity
+END AS total_quantity_ls_adjusted																												
+FROM dp_food_flow_ouaga_incl_nullvalues_total_daily_quantity_sel_comm;			
+
+CREATE VIEW dp_food_flow_bko_incl_nullvalues_total_daily_quantity_ls_adjust AS
+SELECT *, 
+CASE 
+WHEN trim(from commodity_name_gen)='Goat'
+	Then daily_quantity*25
+WHEN trim(from commodity_name_gen)='Chicken'
+	Then daily_quantity*1.75
+WHEN trim(from commodity_name_gen)='Sheep'
+	Then daily_quantity*30
+WHEN trim(from commodity_name_gen)='Cattle'
+	Then daily_quantity*200
+WHEN trim(from commodity_name_gen)='Pig'
+	Then daily_quantity*42
+WHEN trim(from commodity_name_gen)='Guinew fowl'
+	Then daily_quantity*2
+ELSE daily_quantity
+END AS daily_quantity_ls_adjusted,
+CASE 
+WHEN trim(from commodity_name_gen)='Goat'
+	Then total_quantity*25
+WHEN trim(from commodity_name_gen)='Chicken'
+	Then total_quantity*1.75
+WHEN trim(from commodity_name_gen)='Sheep'
+	Then total_quantity*30
+WHEN trim(from commodity_name_gen)='Cattle'
+	Then total_quantity*200
+WHEN trim(from commodity_name_gen)='Pig'
+	Then total_quantity*42
+WHEN trim(from commodity_name_gen)='Guinew fowl'
+	Then total_quantity*2
+ELSE total_quantity
+END AS total_quantity_ls_adjusted																												
+FROM dp_food_flow_bko_incl_nullvalues_total_daily_quantity_sel_comm;
+
+CREATE VIEW dp_food_flow_bda_incl_nullvalues_total_daily_quantity_ls_adjust AS
+SELECT *, 
+CASE 
+WHEN trim(from commodity_name_gen)='Goat'
+	Then daily_quantity*25
+WHEN trim(from commodity_name_gen)='Chicken'
+	Then daily_quantity*1.75
+WHEN trim(from commodity_name_gen)='Sheep'
+	Then daily_quantity*30
+WHEN trim(from commodity_name_gen)='Cattle'
+	Then daily_quantity*200
+WHEN trim(from commodity_name_gen)='Pig'
+	Then daily_quantity*42
+WHEN trim(from commodity_name_gen)='Guinew fowl'
+	Then daily_quantity*2
+ELSE daily_quantity
+END AS daily_quantity_ls_adjusted,
+CASE 
+WHEN trim(from commodity_name_gen)='Goat'
+	Then total_quantity*25
+WHEN trim(from commodity_name_gen)='Chicken'
+	Then total_quantity*1.75
+WHEN trim(from commodity_name_gen)='Sheep'
+	Then total_quantity*30
+WHEN trim(from commodity_name_gen)='Cattle'
+	Then total_quantity*200
+WHEN trim(from commodity_name_gen)='Pig'
+	Then total_quantity*42
+WHEN trim(from commodity_name_gen)='Guinew fowl'
+	Then total_quantity*2
+ELSE total_quantity
+END AS total_quantity_ls_adjusted																												
+FROM dp_food_flow_bda_incl_nullvalues_total_daily_quantity_sel_comm;
+
+CREATE VIEW dp_food_flow_tle_incl_nullvalues_total_daily_quantity_ls_adjust AS
+SELECT *, 
+CASE 
+WHEN trim(from commodity_name_gen)='Goat'
+	Then daily_quantity*25
+WHEN trim(from commodity_name_gen)='Chicken'
+	Then daily_quantity*1.75
+WHEN trim(from commodity_name_gen)='Sheep'
+	Then daily_quantity*30
+WHEN trim(from commodity_name_gen)='Cattle'
+	Then daily_quantity*200
+WHEN trim(from commodity_name_gen)='Pig'
+	Then daily_quantity*42
+WHEN trim(from commodity_name_gen)='Guinew fowl'
+	Then daily_quantity*2
+ELSE daily_quantity
+END AS daily_quantity_ls_adjusted,
+CASE 
+WHEN trim(from commodity_name_gen)='Goat'
+	Then total_quantity*25
+WHEN trim(from commodity_name_gen)='Chicken'
+	Then total_quantity*1.75
+WHEN trim(from commodity_name_gen)='Sheep'
+	Then total_quantity*30
+WHEN trim(from commodity_name_gen)='Cattle'
+	Then total_quantity*200
+WHEN trim(from commodity_name_gen)='Pig'
+	Then total_quantity*42
+WHEN trim(from commodity_name_gen)='Guinew fowl'
+	Then total_quantity*2
+ELSE total_quantity
+END AS total_quantity_ls_adjusted																												
+FROM dp_food_flow_tle_incl_nullvalues_total_daily_quantity_sel_comm;
+
+
+--- Data
+--- Table 1: missing entries (note that this table contains secondary data for Ouaga), 11 rows of 'wheat' in Tamale changed to 'Bran'
+
+CREATE VIEW dp_metadata_missing_records AS
+SELECT f.year, f.season, COUNT(f.*), ROUND(100.0-COUNT(f.quantity)*100.0/COUNT(f.*), 1) AS missing_quantity_percent, ROUND(100.0-COUNT(f.unit)*100.0/COUNT(f.*),1) AS missing_unit_percent, ROUND(100.0-COUNT(f.source)*100.0/COUNT(f.*),1) AS missing_source_percent, ROUND(100.0-COUNT(f.destination)*100.0/COUNT(f.*),1) AS missing_destination_percent, 'Tamale' AS city
+FROM dp_food_flow_tle_incl_nullvalues_total_daily_quantity_sel_comm f
+GROUP BY f.year, f.season
+UNION ALL
+SELECT f.year, f.season, COUNT(f.*), ROUND(100.0-COUNT(f.quantity)*100.0/COUNT(f.*), 1) AS missing_quantity_percent, ROUND(100.0-COUNT(f.unit)*100.0/COUNT(f.*),1) AS missing_unit_percent, ROUND(100.0-COUNT(f.source)*100.0/COUNT(f.*),1) AS missing_source_percent, ROUND(100.0-COUNT(f.destination)*100.0/COUNT(f.*),1) AS missing_destination_percent, 'Ouagadougou' AS city
+FROM dp_food_flow_ouaga_incl_nullvalues_total_daily_quantity_sel_comm f
+WHERE f.season<>'revolution'
+GROUP BY f.year, f.season
+UNION ALL
+SELECT f.year, f.season, COUNT(f.*), ROUND(100.0-COUNT(f.quantity)*100.0/COUNT(f.*), 1) AS missing_quantity_percent, ROUND(100.0-COUNT(f.unit)*100.0/COUNT(f.*),1) AS missing_unit_percent, ROUND(100.0-COUNT(f.source)*100.0/COUNT(f.*),1) AS missing_source_percent, ROUND(100.0-COUNT(f.destination)*100.0/COUNT(f.*),1) AS missing_destination_percent, 'Bamako' AS city
+FROM dp_food_flow_bko_incl_nullvalues_total_daily_quantity_sel_comm f
+GROUP BY f.year, f.season
+UNION ALL
+SELECT f.year, f.season, COUNT(f.*), ROUND(100.0-COUNT(f.quantity)*100.0/COUNT(f.*), 1) AS missing_quantity_percent, ROUND(100.0-COUNT(f.unit)*100.0/COUNT(f.*),1) AS missing_unit_percent, ROUND(100.0-COUNT(f.source)*100.0/COUNT(f.*),1) AS missing_source_percent, ROUND(100.0-COUNT(f.destination)*100.0/COUNT(f.*),1) AS missing_destination_percent, 'Bamenda' AS city
+FROM dp_food_flow_bda_incl_nullvalues_total_daily_quantity_sel_comm f
+GROUP BY f.year, f.season;
+
+SELECT *
+FROM dp_metadata_missing_records;
+
+
+-------------------- 
+
+---- missing data; % of total quantity, crop- and season-specific for computing 'daily_quantity_adjusted_for_missing_locations'
+
+--- Tamale
+
+CREATE VIEW dp_Tle_missing_data AS
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Tamale' AS city, 'Peak 2013' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='peak'
+AND f.year=2013
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Tamale' AS city, 'Lean 2014' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='lean'
+AND f.year=2014
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Tamale' AS city, 'Peak 2014' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='peak'
+AND f.year=2014
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Tamale' AS city, 'Lean 2015' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='lean'
+AND f.year=2015
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Tamale' AS city, 'Rainy 2016' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='rainy'
+AND f.year=2016
+GROUP BY f.commodity_name_gen, f.season, f.year;
+
+CREATE VIEW dp_Tle_all_data AS
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Tamale' AS city, 'Peak 2013' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='peak'
+AND f.year=2013
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Tamale' AS city, 'Lean 2014' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='lean'
+AND f.year=2014
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Tamale' AS city, 'Peak 2014' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='peak'
+AND f.year=2014
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Tamale' AS city, 'Lean 2015' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='lean'
+AND f.year=2015
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Tamale' AS city, 'Rainy 2016' AS season_year, f.season, f.year
+FROM dp_food_flow_tle_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='rainy'
+AND f.year=2016
+GROUP BY f.commodity_name_gen, f.season, f.year;
+
+CREATE VIEW dp_Tle_percent_missing AS 
+SELECT d.*, m.quantity_missing_locations, COALESCE(m.quantity_missing_locations, 0)*100/d.total_quantity AS percent_missing_quantity
+FROM dp_Tle_all_data d
+FULL OUTER JOIN dp_Tle_missing_data m ON d.commodity_name_gen=m.commodity_name_gen AND d.season_year=m.season_year
+ORDER BY d.commodity_name_gen;
+
+
+--- Bamako		   
+				
+CREATE VIEW dp_Bamako_missing_data AS
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Bamako' AS city, 'Peak 2015' AS season_year, f.season, f.year
+FROM dp_food_flow_bko_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='peak'
+AND f.year=2015
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Bamako' AS city, 'Lean 2016' AS season_year, f.season, f.year
+FROM dp_food_flow_bko_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='lean'
+AND f.year=2016
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Bamako' AS city, 'Rainy 2017' AS season_year, f.season, f.year
+FROM dp_food_flow_bko_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='rainy'
+AND f.year=2017
+GROUP BY f.commodity_name_gen, f.season, f.year;
+
+CREATE VIEW dp_Bamako_all_data AS
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Bamako' AS city, 'Peak 2015' AS season_year, f.season, f.year
+FROM dp_food_flow_bko_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='peak'
+AND f.year=2015
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Bamako' AS city, 'Lean 2016' AS season_year, f.season, f.year
+FROM dp_food_flow_bko_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='lean'
+AND f.year=2016
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Bamako' AS city, 'Rainy 2017' AS season_year, f.season, f.year
+FROM dp_food_flow_bko_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='rainy'
+AND f.year=2017
+GROUP BY f.commodity_name_gen, f.season, f.year;
+
+CREATE VIEW dp_Bko_percent_missing AS 
+SELECT d.*, m.quantity_missing_locations,  COALESCE(m.quantity_missing_locations, 0)*100/d.total_quantity AS percent_missing_quantity
+FROM dp_Bamako_all_data d
+FULL OUTER JOIN dp_Bamako_missing_data m ON d.commodity_name_gen=m.commodity_name_gen AND d.season_year=m.season_year;
+
+--- Ouaga			
+--- without rail
+---DROP VIEW dp_Ouaga_missing_data_wo_rail CASCADE
+---DROP VIEW dp_Ouaga_all_data_wo_rail CASCADE
+
+CREATE VIEW dp_Ouaga_missing_data_wo_rail AS
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Ouaga' AS city, 'Peak 2014' AS season_year, f.season, f.year
+FROM dp_food_flow_Ouaga_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='peak'
+AND f.year=2014
+AND f.transport_new<>'Rail'
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Ouaga' AS city, 'Lean 2014' AS season_year, f.season, f.year
+FROM dp_food_flow_Ouaga_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='lean'
+AND f.year=2014
+AND f.transport_new<>'Rail'
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Ouaga' AS city, 'Rainy 2016' AS season_year, f.season, f.year
+FROM dp_food_flow_Ouaga_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='rainy'
+AND f.year=2016
+AND f.transport_new<>'Rail'
+GROUP BY f.commodity_name_gen, f.season, f.year;
+
+CREATE VIEW dp_Ouaga_all_data_wo_rail AS
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Ouaga' AS city, 'Peak 2014' AS season_year, f.season, f.year
+FROM dp_food_flow_Ouaga_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='peak'
+AND f.year=2014
+AND f.transport_new<>'Rail'
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Ouaga' AS city, 'Lean 2014' AS season_year, f.season, f.year
+FROM dp_food_flow_Ouaga_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='lean'
+AND f.year=2014
+AND f.transport_new<>'Rail'
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Ouaga' AS city, 'Rainy 2016' AS season_year, f.season, f.year
+FROM dp_food_flow_Ouaga_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='rainy'
+AND f.year=2016
+AND f.transport_new<>'Rail'
+GROUP BY f.commodity_name_gen, f.season, f.year;
+
+CREATE VIEW dp_Ouaga_percent_missing_wo_rail  AS 
+SELECT d.*, m.quantity_missing_locations, COALESCE(m.quantity_missing_locations, 0)*100/d.total_quantity AS percent_missing_quantity
+FROM dp_Ouaga_all_data_wo_rail  d
+FULL OUTER JOIN dp_Ouaga_missing_data_wo_rail m ON d.commodity_name_gen=m.commodity_name_gen AND d.season_year=m.season_year;
+
+
+--- Bamenda			   
+
+CREATE VIEW dp_Bamenda_missing_data AS
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Bamenda' AS city, 'Lean 2017' AS season_year, f.season, f.year
+FROM dp_food_flow_bda_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='lean'
+AND f.year=2017
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS quantity_missing_locations, 'Bamenda' AS city, 'Rainy 2017' AS season_year, f.season, f.year
+FROM dp_food_flow_bda_incl_Nullvalues_total_daily_quantity f
+WHERE ((f.source_category IS NULL OR f.destination_category IS NULL) OR (f.source_category IS NULL AND f.destination_category IS NULL))
+AND f.season='rainy'
+AND f.year=2017
+GROUP BY f.commodity_name_gen, f.season, f.year;
+
+CREATE VIEW dp_Bamenda_all_data AS
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Bamenda' AS city, 'Lean 2017' AS season_year, f.season, f.year
+FROM dp_food_flow_bda_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='lean'
+AND f.year=2017
+GROUP BY f.commodity_name_gen, f.season, f.year
+UNION ALL
+SELECT f.commodity_name_gen, SUM(f.daily_quantity) AS total_quantity, 'Bamenda' AS city, 'Rainy 2017' AS season_year, f.season, f.year
+FROM dp_food_flow_bda_incl_Nullvalues_total_daily_quantity f
+WHERE f.season='rainy'
+AND f.year=2017
+GROUP BY f.commodity_name_gen, f.season, f.year;
+
+CREATE VIEW dp_Bda_percent_missing AS 
+SELECT d.*, m.quantity_missing_locations, COALESCE(m.quantity_missing_locations, 0)*100/d.total_quantity AS percent_missing_quantity
+FROM dp_Bamenda_all_data d
+FULL OUTER JOIN dp_Bamenda_missing_data m ON d.commodity_name_gen=m.commodity_name_gen AND d.season_year=m.season_year;
+
+-- UNION ALL cities (Ouagadougou without taking rail data into account)
+
+CREATE VIEW dp_missing_data_all_cities AS 
+SELECT commodity_name_gen, season, year, quantity_missing_locations, total_quantity, percent_missing_quantity, 'Bamako' AS city
+FROM dp_Bko_percent_missing
+UNION ALL
+SELECT commodity_name_gen, season, year, quantity_missing_locations, total_quantity, percent_missing_quantity, 'Ouagadougou' AS city
+FROM dp_Ouaga_percent_missing_wo_rail
+UNION ALL
+SELECT commodity_name_gen, season, year, quantity_missing_locations, total_quantity, percent_missing_quantity, 'Tamale' AS city
+FROM dp_Tle_percent_missing
+UNION ALL
+SELECT commodity_name_gen, season, year, quantity_missing_locations, total_quantity, percent_missing_quantity, 'Bamenda' AS city
+FROM dp_Bda_percent_missing;
+
+
+--- Final dataset (adding geometry and computing distance between focal city and source / destination)
+
+
+DROP MATERIALIZED VIEW dp_final_record;
+
+CREATE MATERIALIZED VIEW dp_final_record AS
+SELECT f.id AS original_id, CASE WHEN f.data_collection_name='checkpoint_1' THEN 'Datoyili barrier'
+WHEN f.data_collection_name='checkpoint_2' THEN 'Yendi junction'
+WHEN f.data_collection_name='Yendi junction' THEN 'Yendi junction'
+WHEN f.data_collection_name='checkpoint_3' THEN 'Airport junction'
+WHEN f.data_collection_name='Airport junction' THEN 'Airport junction'
+WHEN f.data_collection_name='checkpoint_4' THEN 'Kumbungu road'
+WHEN f.data_collection_name='Kumbungu road' THEN 'Kumbungu road'
+WHEN f.data_collection_name='checkpoint_5' THEN 'Nyankpala road'
+WHEN f.data_collection_name='Nyankpala road' THEN 'Nyankpala road'
+WHEN f.data_collection_name='checkpoint_6' THEN 'Savelugu Customs barrier'
+WHEN f.data_collection_name='Savelugu Customs barrier' THEN 'Savelugu Customs barrier'
+WHEN f.data_collection_name='market_1' THEN 'Katinga Market'
+WHEN f.data_collection_name='market_2' THEN 'Savelugu Market'
+WHEN f.data_collection_name='market_3' THEN 'Tampiong Market'
+WHEN f.data_collection_name='market_4' THEN 'Nyankpala Market'
+WHEN f.data_collection_name='market_5' THEN 'Kumbungu Market'
+WHEN f.data_collection_name='market_6' THEN 'Tamale Aboabo Market'
+ELSE NULL
+END AS data_collection_name, f.direction, TRIM(FROM f.transport_new) AS means_of_transport, 
+TRIM(FROM f.commodity_name) AS commodity_name, TRIM(FROM f.commodity_name_gen) AS commodity_name_gen, TRIM(FROM f.commodity_category) AS commodity_category, f.quantity, f.unit, 
+s.label AS source_name, f.source AS source_ID, CASE WHEN f.source_category='urban' THEN 'yes' WHEN f.source_category<>'urban' THEN 'no' WHEN f.source_category IS NULL THEN NULL
+END AS source_within_urban_boundary, TRIM(FROM f.source_specification_corrected) AS source_specification, ST_AsText(s.geom) AS source_geometry, 
+ST_distance(ST_Transform(s.geom::geometry, 32630), ST_Transform('SRID=4326;POINT(-0.84287 9.40469)'::geometry, 32630))/1000 AS distance_to_source_km,
+t.label AS destination_name, f.destination AS destination_ID, CASE WHEN f.destination_category='urban' THEN 'yes' WHEN f.destination_category<>'urban' THEN 'no' WHEN f.destination_category IS NULL THEN NULL
+END AS destination_within_urban_boundary,ST_AsText(t.geom) AS destination_geometry, ST_distance(ST_Transform(t.geom::geometry, 32630), ST_Transform('SRID=4326;POINT(-0.84287 9.40469)'::geometry, 32630))/1000 AS distance_to_destination_km,
+f.date, f.time, TRIM(FROM f.season) AS season, f.year, f.no_days, f.daytime, f.unit_quantity, f.total_quantity_ls_adjusted AS total_quantity, f.daily_quantity_ls_adjusted AS daily_quantity, m.percent_missing_quantity, f.daily_quantity_ls_adjusted+(f.daily_quantity_ls_adjusted)*m.percent_missing_quantity/100 AS daily_quantity_adjusted_for_missing_locations, 312881 AS population, m.city 
+	FROM dp_food_flow_tle_incl_nullvalues_total_daily_quantity_ls_adjust f
+	LEFT OUTER JOIN dp_missing_data_all_cities m ON f.season=m.season AND f.commodity_name_gen=m.commodity_name_gen AND f.year=m.year
+	LEFT OUTER JOIN food_flow_locations_spatial s ON f.source=s.id
+	LEFT OUTER JOIN food_flow_locations_spatial t ON f.destination=t.id																				
+	WHERE m.city='Tamale'
+UNION ALL
+SELECT f.id AS original_id, f.data_collection_name, f.direction, TRIM(FROM f.transport_new) AS means_of_transport, 
+TRIM(FROM f.commodity_name) AS commodity_name, TRIM(FROM f.commodity_name_gen) AS commodity_name_gen, TRIM(FROM f.commodity_category) AS commodity_category, f.quantity, f.unit, 
+s.label AS source_name, f.source AS source_ID, CASE WHEN f.source_category='urban' THEN 'yes' WHEN f.source_category<>'urban' THEN 'no' WHEN f.source_category IS NULL THEN NULL
+END AS source_within_urban_boundary, TRIM(FROM f.source_specification_corrected) AS source_specification, ST_AsText(s.geom) AS source_geometry, 
+ST_distance(ST_Transform(s.geom::geometry, 32630), ST_Transform('SRID=4326;POINT(-1.52376 12.36799)'::geometry, 32630))/1000 AS distance_to_source_km,
+t.label AS destination_name, f.destination AS destination_ID, CASE WHEN f.destination_category='urban' THEN 'yes' WHEN f.destination_category<>'urban' THEN 'no' WHEN f.destination_category IS NULL THEN NULL
+END AS destination_within_urban_boundary,ST_AsText(t.geom) AS destination_geometry, ST_distance(ST_Transform(t.geom::geometry, 32630), ST_Transform('SRID=4326;POINT(-1.52376 12.36799)'::geometry, 32630))/1000 AS distance_to_destination_km,
+f.date, f.time, TRIM(FROM f.season) AS season, f.year, f.no_days, f.daytime, f.unit_quantity, f.total_quantity_ls_adjusted AS total_quantity, f.daily_quantity_ls_adjusted AS daily_quantity, m.percent_missing_quantity, f.daily_quantity_ls_adjusted+(f.daily_quantity_ls_adjusted)*m.percent_missing_quantity/100 AS daily_quantity_adjusted_for_missing_locations, 2299007 AS population, m.city																	
+FROM dp_food_flow_ouaga_incl_nullvalues_total_daily_quantity_ls_adjust f
+	LEFT OUTER JOIN dp_missing_data_all_cities m ON f.season=m.season AND f.commodity_name_gen=m.commodity_name_gen AND f.year=m.year
+	LEFT OUTER JOIN food_flow_locations_ouaga s ON f.source=s.id
+	LEFT OUTER JOIN food_flow_locations_ouaga t ON f.destination=t.id	
+	WHERE m.city='Ouagadougou'
+	AND (f.transport_new<>'Rail' AND f.transport_new<>'Plane'
+	OR f.transport_new IS NULL)
+	AND f.season<>'revolution'
+UNION ALL
+SELECT f.id AS original_id, f.data_collection_name, f.direction, TRIM(FROM f.transport_new) AS means_of_transport, 
+TRIM(FROM f.commodity_name) AS commodity_name, TRIM(FROM f.commodity_name_gen) AS commodity_name_gen, TRIM(FROM f.commodity_category) AS commodity_category, f.quantity, f.unit, 
+s.label AS source_name, f.source AS source_ID, CASE WHEN f.source_category='urban' THEN 'yes' WHEN f.source_category<>'urban' THEN 'no' WHEN f.source_category IS NULL THEN NULL
+END AS source_within_urban_boundary,TRIM(FROM f.source_specification_corrected) AS source_specification, ST_AsText(s.geom) AS source_geometry, 
+ST_distance(ST_Transform(s.geom::geometry, 32630), ST_Transform('SRID=4326;POINT(-1.52376 12.36799)'::geometry, 32630))/1000 AS distance_to_source_km,
+t.label AS destination_name, f.destination AS destination_ID, CASE WHEN f.destination_category='urban' THEN 'yes' WHEN f.destination_category<>'urban' THEN 'no' WHEN f.destination_category IS NULL THEN NULL
+END AS destination_within_urban_boundary,ST_AsText(t.geom) AS destination_geometry, ST_distance(ST_Transform(t.geom::geometry, 32630), ST_Transform('SRID=4326;POINT(-1.52376 12.36799)'::geometry, 32630))/1000 AS distance_to_destination_km,
+f.date, f.time, TRIM(FROM f.season) AS season, f.year, f.no_days, f.daytime, f.unit_quantity, f.total_quantity_ls_adjusted AS total_quantity, f.daily_quantity_ls_adjusted AS daily_quantity, 0 AS percent_missing_quantity, f.daily_quantity_ls_adjusted AS daily_quantity_adjusted_for_missing_locations, 2299007 AS population, 'Ouagadougou' AS city
+	FROM dp_food_flow_ouaga_incl_nullvalues_total_daily_quantity_ls_adjust f
+	LEFT OUTER JOIN food_flow_locations_ouaga s ON f.source=s.id
+	LEFT OUTER JOIN food_flow_locations_ouaga t ON f.destination=t.id	
+	WHERE f.transport_new='Rail'
+	AND f.season<>'revolution'
+UNION ALL
+SELECT f.id AS original_id, f.data_collection_name, f.direction, TRIM(FROM f.transport_new) AS means_of_transport, 
+TRIM(FROM f.commodity_name) AS commodity_name, TRIM(FROM f.commodity_name_gen) AS commodity_name_gen, TRIM(FROM f.commodity_category) AS commodity_category, f.quantity, f.unit, 
+s.label AS source_name, f.source AS source_ID, CASE WHEN f.source_category='urban' THEN 'yes' WHEN f.source_category<>'urban' THEN 'no' WHEN f.source_category IS NULL THEN NULL
+END AS source_within_urban_boundary, TRIM(FROM f.source_specification_corrected) AS source_specification, ST_AsText(s.geom) AS source_geometry, 
+ST_distance(ST_Transform(s.geom::geometry, 32630), ST_Transform('SRID=4326;POINT(-1.52376 12.36799)'::geometry, 32630))/1000 AS distance_to_source_km,
+t.label AS destination_name, f.destination AS destination_ID, CASE WHEN f.destination_category='urban' THEN 'yes' WHEN f.destination_category<>'urban' THEN 'no' WHEN f.destination_category IS NULL THEN NULL
+END AS destination_within_urban_boundary,ST_AsText(t.geom) AS destination_geometry, ST_distance(ST_Transform(t.geom::geometry, 32630), ST_Transform('SRID=4326;POINT(-1.52376 12.36799)'::geometry, 32630))/1000 AS distance_to_destination_km,
+f.date, f.time, TRIM(FROM f.season) AS season, f.year, f.no_days, f.daytime, f.unit_quantity, f.total_quantity_ls_adjusted AS total_quantity, f.daily_quantity_ls_adjusted AS daily_quantity, 0 AS percent_missing_quantity, f.daily_quantity_ls_adjusted AS daily_quantity_adjusted_for_missing_locations, 2299007 AS population, 'Ouagadougou' AS city																
+FROM dp_food_flow_ouaga_incl_nullvalues_total_daily_quantity_ls_adjust f
+	LEFT OUTER JOIN food_flow_locations_ouaga s ON f.source=s.id
+	LEFT OUTER JOIN food_flow_locations_ouaga t ON f.destination=t.id	
+	WHERE f.transport_new='Plane'
+	AND f.season<>'revolution'
+UNION ALL
+	SELECT f.id AS original_id, f.data_collection_name, f.direction, TRIM(FROM f.transport_new) AS means_of_transport, 
+TRIM(FROM f.commodity_name) AS commodity_name, TRIM(FROM f.commodity_name_gen) AS commodity_name_gen, TRIM(FROM f.commodity_category) AS commodity_category, f.quantity, f.unit, 
+s.label AS source_name, f.source AS source_ID, CASE WHEN f.source_category='urban' THEN 'yes' WHEN f.source_category<>'urban' THEN 'no' WHEN f.source_category IS NULL THEN NULL
+END AS source_within_urban_boundary, TRIM(FROM f.source_specification_corrected) AS source_specification, ST_AsText(s.geom) AS source_geometry, 
+ST_distance(ST_Transform(s.geom::geometry, 32629), ST_Transform('SRID=4326;POINT(-7.99578 12.64411)'::geometry, 32629))/1000 AS distance_to_source_km,
+t.label AS destination_name, f.destination AS destination_ID, CASE WHEN f.destination_category='urban' THEN 'yes' WHEN f.destination_category<>'urban' THEN 'no' WHEN f.destination_category IS NULL THEN NULL
+END AS destination_within_urban_boundary,ST_AsText(t.geom) AS destination_geometry, ST_distance(ST_Transform(t.geom::geometry, 32629), ST_Transform('SRID=4326;POINT(-7.99578 12.64411)'::geometry, 32629))/1000 AS distance_to_destination_km,
+f.date, f.time, TRIM(FROM f.season) AS season, f.year, f.no_days, f.daytime, f.unit_quantity, f.total_quantity_ls_adjusted AS total_quantity, f.daily_quantity_ls_adjusted AS daily_quantity, m.percent_missing_quantity, f.daily_quantity_ls_adjusted+(f.daily_quantity_ls_adjusted)*m.percent_missing_quantity/100 AS daily_quantity_adjusted_for_missing_locations, 2781734 AS population, m.city																	
+	FROM dp_food_flow_bko_incl_nullvalues_total_daily_quantity_ls_adjust f
+	LEFT OUTER JOIN dp_missing_data_all_cities m ON f.season=m.season AND f.commodity_name_gen=m.commodity_name_gen AND f.year=m.year
+	LEFT OUTER JOIN food_flow_locations_bamako s ON f.source=s.id
+	LEFT OUTER JOIN food_flow_locations_bamako t ON f.destination=t.id	
+	WHERE m.city='Bamako'
+UNION ALL
+SELECT f.id AS original_id, f.data_collection_name, f.direction, TRIM(FROM f.transport_new) AS means_of_transport, 
+TRIM(FROM f.commodity_name) AS commodity_name, TRIM(FROM f.commodity_name_gen) AS commodity_name_gen, TRIM(FROM f.commodity_category) AS commodity_category, f.quantity, f.unit, 
+s.label AS source_name, f.source AS source_ID, CASE WHEN f.source_category='urban' THEN 'yes' WHEN f.source_category<>'urban' THEN 'no' WHEN f.source_category IS NULL THEN NULL
+END AS source_within_urban_boundary, TRIM(FROM f.source_specification_corrected) AS source_specification, ST_AsText(s.geom) AS source_geometry, 
+ST_distance(ST_Transform(s.geom::geometry, 32632), ST_Transform('SRID=4326;POINT(10.15122 5.95376)'::geometry, 32632))/1000 AS distance_to_source_km,
+t.label AS destination_name, f.destination AS destination_ID, CASE WHEN f.destination_category='urban' THEN 'yes' WHEN f.destination_category<>'urban' THEN 'no' WHEN f.destination_category IS NULL THEN NULL
+END AS destination_within_urban_boundary,ST_AsText(t.geom) AS destination_geometry, ST_distance(ST_Transform(t.geom::geometry, 32632), ST_Transform('SRID=4326;POINT(10.15122 5.95376)'::geometry, 32632))/1000 AS distance_to_destination_km,
+f.date, f.time, TRIM(FROM f.season) AS season, f.year, f.no_days, f.daytime, f.unit_quantity, f.total_quantity_ls_adjusted AS total_quantity, f.daily_quantity_ls_adjusted AS daily_quantity, m.percent_missing_quantity, f.daily_quantity_ls_adjusted+(f.daily_quantity_ls_adjusted)*m.percent_missing_quantity/100 AS daily_quantity_adjusted_for_missing_locations, 312337 AS population, m.city																	
+	FROM dp_food_flow_bda_incl_nullvalues_total_daily_quantity_ls_adjust f
+	LEFT OUTER JOIN dp_missing_data_all_cities m ON f.season=m.season AND f.commodity_name_gen=m.commodity_name_gen AND f.year=m.year
+	LEFT OUTER JOIN food_flow_locations_bamenda s ON f.source=s.id
+	LEFT OUTER JOIN food_flow_locations_bamenda t ON f.destination=t.id	
+	WHERE m.city='Bamenda';
+
+--- add serial id and save to file
+
+COPY (SELECT ROW_NUMBER() OVER (ORDER BY 1) AS id, * FROM dp_final_record) TO 'C:\Users\Public\postgresql_files\final_record_17012023.csv' with (FORMAT CSV, HEADER TRUE, DELIMITER ';', ENCODING 'WIN1252');
+
+
+
+

@@ -1,0 +1,64 @@
+unit;volume_m3
+10 kg sack                                        ;0.016
+100 kg sack                                       ;0.16
+120 kg sack                                       ;0.192
+150 kg sack                                       ;0.24
+20 kg sack                                        ;0.032
+200 kg sack                                       ;0.32
+25 kg sack                                        ;0.04
+250 kg sack                                       ;0.4
+30 kg sack                                        ;0.048
+40 kg sack                                        ;0.064
+50 kg sack                                        ;0.08
+75 kg sack                                        ;0.12
+80 kg sack                                        ;0.128
+90 kg sack                                        ;0.144
+Alonka                                            ;0.012
+Animal                                            ;1
+Apple box                                         ;0.04
+Banana box                                        ;0.05
+Basin large                                       ;0.048
+Basin medium                                      ;0.04
+Basin small                                       ;0.028
+Basket large                                      ;0.048
+Basket medium                                     ;0.04
+Basket small                                      ;0.028
+Benz cargo truck (2 axles)                        ;35
+Benz cargo truck (3 axles)                        ;45
+Benz plain face                                   ;32
+Bowl                                              ;0.004
+Bucket                                            ;0.03
+Calabash                                          ;0.004
+Champion sack                                     ;0.8
+Daf 2 axles                                       ;36
+Daf 3 axles                                       ;38
+Fertilizer sack                                   ;0.08
+Fish box (imported fish)                          ;0.04
+Hand truck                                        ;0.5
+Jute sack                                         ;0.16
+Kia (normal)                                      ;9
+Kia Rhino (2 axles)                               ;20
+Kia Rhino (3 axles)                               ;26
+Makola sack                                       ;0.208
+MAN Diesel (2 axles)                              ;36
+MAN Diesel (3 axles)                              ;38
+MAN Diesel (4 axles)                              ;38
+Motorking                                         ;1.7
+Onion sack (net)                                  ;0.04
+Passenger Car                                     ;9.04
+Personal car                                      ;0.5
+Pick-Up                                           ;1
+Plastik bag                                       ;0.012
+Tomato box (l)                                    ;0.1
+Tomato box (m)                                    ;0.07
+Tomato box (s)                                    ;0.03
+Tractor                                           ;9
+Truck                                             ;37
+Truck (2 axles)                                   ;36
+Truck (3 axles)                                   ;38
+Urvan                                             ;5
+Albion (2 axles)                                  ;25
+Pick-up                                           ;1
+Box                                               ;0.04
+Albion (3 axles)                                  ;25
+tractor                                           ;9

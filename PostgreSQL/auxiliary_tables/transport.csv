@@ -1,0 +1,228 @@
+transport_old;transport_new
+Art 6 axle                                        ;Articulator                                       
+Articulator                                       ;Articulator                                       
+Articulator (Container)                           ;Articulator                                       
+Articulator 3Axles                                ;Articulator                                       
+Articulator 4axles                                ;Articulator                                       
+Articulator 5axles                                ;Articulator                                       
+Articulator 6axles                                ;Articulator                                       
+Articulator 7axles                                ;Articulator                                       
+Articulator 8axles                                ;Articulator                                       
+Articulator/Remorque                              ;Articulator                                       
+camion 5 axels                                    ;Articulator                                       
+camion 6 axels                                    ;Articulator                                       
+Remorque 4 Axels                                  ;Articulator                                       
+Remorque 4 axles                                  ;Articulator                                       
+Remorque 5 Axels                                  ;Articulator                                       
+remorque 5 axles                                  ;Articulator                                       
+Remorque 6 Axels                                  ;Articulator                                       
+Remorque 7 Axels                                  ;Articulator                                       
+Truck 5axles                                      ;Articulator                                       
+Truck 6axles                                      ;Articulator                                       
+Bicycle                                           ;Bicycle                                           
+Boat                                              ;Boat/ferry                                        
+Ferry                                             ;Boat/ferry                                        
+Donkey cart                                       ;Donkey cart                                       
+Handtruck                                         ;Handtruck                                         
+Handtruck (Pousse Pousse)                         ;Handtruck                                         
+HD                                                ;Handtruck                                         
+HD(Hand truck)                                    ;Handtruck                                         
+Bike                                              ;Motorbike                                         
+Mopet                                             ;Motorbike                                         
+motor bicycle                                     ;Motorbike                                         
+Motorbike                                         ;Motorbike                                         
+14                                                ;Other                                             
+A2                                                ;Other                                             
+A3                                                ;Other                                             
+AT                                                ;Other                                             
+avensis                                           ;Other                                             
+Baine                                             ;Other                                             
+blank                                             ;Other                                             
+c                                                 ;Other                                             
+Car (frigonette)                                  ;Other                                             
+so                                                ;Other                                             
+Starlet                                           ;Other                                             
+T                                                 ;Other                                             
+tacoma                                            ;Other                                             
+TB                                                ;Other                                             
+Trackter                                          ;Other                                             
+Tracteur                                          ;Other                                             
+Tractor                                           ;Other                                             
+not specified                                     ;Other                                             
+NULL                                              ;Other                                             
+NOT PRECISE                                       ;Other                                             
+NOT PRECISED                                      ;Other                                             
+NOT SPECIFIED                                     ;Other                                             
+Pas precis                                        ;Other                                             
+Auto Bus                                          ;Passenger Car                                     
+Autobus                                           ;Passenger Car                                     
+Baché                                             ;Passenger Car                                     
+Bache                                             ;Passenger Car                                     
+Bus                                               ;Passenger Car                                     
+Coasta                                            ;Passenger Car                                     
+Coaster                                           ;Passenger Car                                     
+Costa                                             ;Passenger Car                                     
+Coster                                            ;Passenger Car                                     
+Dina 100                                          ;Passenger Car                                     
+Dina 150                                          ;Passenger Car                                     
+Dina 200                                          ;Passenger Car                                     
+Dina 250                                          ;Passenger Car                                     
+Dyna                                              ;Passenger Car                                     
+Dyna 100                                          ;Passenger Car                                     
+Dyna 150                                          ;Passenger Car                                     
+Dyna 200                                          ;Passenger Car                                     
+Dyna 250                                          ;Passenger Car                                     
+Dyna 300                                          ;Passenger Car                                     
+Dyna 340                                          ;Passenger Car                                     
+Heace                                             ;Passenger Car                                     
+Hiace                                             ;Passenger Car                                     
+Hiace bus                                         ;Passenger Car                                     
+Litace                                            ;Passenger Car                                     
+Liteace                                           ;Passenger Car                                     
+Liteace Bus                                       ;Passenger Car                                     
+Litiace bus                                       ;Passenger Car                                     
+MEDIUM BUS                                        ;Passenger Car                                     
+MINI BUS                                          ;Passenger Car                                     
+Minibus                                           ;Passenger Car                                     
+Passenger Car                                     ;Passenger Car                                     
+Passenger Car / Sotrama                           ;Passenger Car                                     
+Passenger Car / Sotrama(G)                        ;Passenger Car                                     
+Pegeaut (Bâche)                                   ;Passenger Car                                     
+VIP 9 Seats                                       ;Passenger Car                                     
+Yatt Bus                                          ;Passenger Car                                     
+4Runner Jeep                                      ;Personal car                                      
+Auto-car                                          ;Personal car                                      
+Car                                               ;Personal car                                      
+Carina                                            ;Personal car                                      
+Carina 2                                          ;Personal car                                      
+Carina 3                                          ;Personal car                                      
+Carina E                                          ;Personal car                                      
+Carina II                                         ;Personal car                                      
+Corolla                                           ;Personal car                                      
+Corolla 100                                       ;Personal car                                      
+Corolla Picnic                                    ;Personal car                                      
+Tercel                                            ;Personal car                                      
+Toyata Golf                                       ;Personal car                                      
+Toyota                                            ;Personal car                                      
+Toyota  Helix                                     ;Personal car                                      
+Toyota 100                                        ;Personal car                                      
+Toyota 4x4                                        ;Personal car                                      
+Toyota corolla                                    ;Personal car                                      
+Toyota Hilux                                      ;Personal car                                      
+Toyota Picnic                                     ;Personal car                                      
+Toyota Tercel                                     ;Personal car                                      
+Oil tanker                                        ;Tanker                                            
+Tanker                                            ;Tanker                                            
+Taxi                                              ;Taxi                                              
+Motorking                                         ;Taximoto (motorking)                              
+Taximoto (motorking)                              ;Taximoto (motorking)                              
+Tricycle                                          ;Taximoto (motorking)                              
+2 Axe Truck Dyna 200                              ;Truck                                             
+2 axles                                           ;Truck                                             
+Articulator 2Axles                                ;Truck                                             
+Benz 2 axle                                       ;Truck                                             
+Benz truck 2 axle                                 ;Truck                                             
+camion 2 axels                                    ;Truck                                             
+Camion 3 axels                                    ;Truck                                             
+camion 4 axels                                    ;Truck                                             
+camon 2 axles                                     ;Truck                                             
+CARGO                                             ;Truck                                             
+Cargo truck                                       ;Truck                                             
+container                                         ;Truck                                             
+cotainer                                          ;Truck                                             
+DAF (3 axles)                                     ;Truck                                             
+DAF (truck)                                       ;Truck                                             
+DAF Diesel truck 2 axle                           ;Truck                                             
+DAF truck 3 axle                                  ;Truck                                             
+kia                                               ;Truck                                             
+kia (2 axle)                                      ;Truck                                             
+KIA (3A)                                          ;Truck                                             
+Kia (normal)                                      ;Truck                                             
+Kia A2                                            ;Truck                                             
+Kia A3                                            ;Truck                                             
+KIA Rhino                                         ;Truck                                             
+Kia Rhino (single)                                ;Truck                                             
+KIA rhino 2 axle                                  ;Truck                                             
+KIA rhino 3 axle                                  ;Truck                                             
+KIA TR                                            ;Truck                                             
+Kia Truck                                         ;Truck                                             
+KIA truck 2 axle                                  ;Truck                                             
+Kia(2 axial)                                      ;Truck                                             
+KIA(2A)                                           ;Truck                                             
+KIA(3A)                                           ;Truck                                             
+MAN (4 axles)                                     ;Truck                                             
+MAN Diesel (single)                               ;Truck                                             
+MAN truck                                         ;Truck                                             
+Remorque 2 Axels                                  ;Truck                                             
+Remorque 3 axels                                  ;Truck                                             
+remorque 3 axles                                  ;Truck                                             
+Small KIA truck                                   ;Truck                                             
+Small Truck                                       ;Truck                                             
+Tiper Truck                                       ;Truck                                             
+TR (Truck)                                        ;Truck                                             
+Truck                                             ;Truck                                             
+Truck (3axles)                                    ;Truck                                             
+Truck (container)                                 ;Truck                                             
+Truck 2axeles                                     ;Truck                                             
+Truck 2Axels                                      ;Truck                                             
+Truck 2axles                                      ;Truck                                             
+Truck 3axles                                      ;Truck                                             
+Truck 4axeles                                     ;Truck                                             
+Truck 4axles                                      ;Truck                                             
+Truck flat                                        ;Truck                                             
+Truck(3axles)                                     ;Truck                                             
+Truck/Camion                                      ;Truck                                             
+Citerne                                           ;Other                                             
+Donkey cart (Charette d'âne)                      ;Donkey cart                                       
+Fourgonette                                       ;Other                                             
+Garrison                                          ;Other                                             
+Helix                                             ;Personal car                                      
+Hilux                                             ;Personal car                                      
+Hilux (D)                                         ;Personal car                                      
+Hilux (double cabin}                              ;Personal car                                      
+Hilux Surf                                        ;Personal car                                      
+Hilux Toyota                                      ;Personal car                                      
+Land Cruiser                                      ;Personal car                                      
+Landcruiser                                       ;Personal car                                      
+Mercedes                                          ;Personal car                                      
+Mini car                                          ;Personal car                                      
+ml320                                             ;Other                                             
+MT                                                ;Other                                             
+Opor zafira                                       ;Other                                             
+ovan                                              ;Passenger Car                                     
+Pajero                                            ;Other                                             
+Pas precis                                        ;Other                                             
+Pedestrian                                        ;Other                                             
+personal car                                      ;Personal car                                      
+Peugeot 305                                       ;Personal car                                      
+Peugeot 405                                       ;Personal car                                      
+PF                                                ;Other                                             
+Pi                                                ;Other                                             
+Pick up                                           ;Personal car                                      
+Pick up (Double cabin)                            ;Personal car                                      
+Pickup                                            ;Personal car                                      
+PICK-UP                                           ;Personal car                                      
+Picnic                                            ;Passenger Car                                     
+Picnic Toyota                                     ;Passenger Car                                     
+Pinace                                            ;Boat/ferry                                        
+plan face                                         ;Other                                             
+plane                                             ;Plane                                             
+Pousse pousse                                     ;Handtruck                                         
+Prado                                             ;Personal car                                      
+Private car                                       ;Personal car                                      
+Pulp                                              ;Other                                             
+rail                                              ;Rail                                              
+Rav 4                                             ;Other                                             
+Rav4                                              ;Other                                             
+RCP                                               ;Other                                             
+SMALL BUS                                         ;Passenger Car                                     
+TX                                                ;Other                                             
+Urvan                                             ;Passenger Car                                     
+Van                                               ;Passenger Car                                     
+Vehicle                                           ;Personal car                                      
+Vehicule                                          ;Personal car                                      
+Vehicule 4x4                                      ;Personal car                                      
+Voiture                                           ;Personal car                                      
+Voiture Mercedes                                  ;Personal car                                      
+Wheelbarrow                                       ;Other                                             
+articulator 5 Axles                               ;Articulator                                       

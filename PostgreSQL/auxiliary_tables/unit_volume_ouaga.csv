@@ -1,0 +1,55 @@
+unit;volume_m3
+10 kg sack                                        ;0.016
+100 kg sack                                       ;0.16
+120 kg sack                                       ;0.192
+140 kg sack                                       ;0.224
+15 kg sack                                        ;0.024
+150 kg sack                                       ;0.24
+20 kg sack                                        ;0.032
+200 kg sack                                       ;0.32
+25 kg sack                                        ;0.04
+250 kg sack                                       ;0.4
+30 kg sack                                        ;0.048
+40 kg sack                                        ;0.064
+45 kg sack                                        ;0.072
+48 kg sack                                        ;0.0768
+50 kg sack                                        ;0.08
+60 kg sack                                        ;0.096
+70 kg sack                                        ;0.112
+80 kg sack                                        ;0.128
+Alonka                                            ;0.012
+Animal                                            ;1
+Banana box                                        ;0.05
+Basin large                                       ;0.048
+Basin medium                                      ;0.04
+Basin small                                       ;0.028
+Basket large                                      ;0.3
+Basket medium                                     ;0.2
+Basket small                                      ;0.08
+Bowl                                              ;0.004
+Bucket                                            ;0.03
+Calabash                                          ;0.004
+Apple box                                         ;0.04
+Fish box (imported fish)                          ;0.04
+Donkey cart                                       ;1.7
+Handtruck (Pousse Pousse)                         ;0.5
+Horse cart                                        ;1.7
+Kia (normal)                                      ;9
+Onion sack (net)                                  ;0.04
+Personal car                                      ;0.5
+Pick-Up                                           ;1
+Plastik bag                                       ;0.012
+Taximoto (motorking)                              ;1.7
+Tomato box (large)                                ;0.1
+Tomato box (medium)                               ;0.07
+Tomato box (small)                                ;0.03
+Tractor                                           ;21
+Truck                                             ;37
+Truck (2 axles)                                   ;36
+Truck (3 axles)                                   ;38
+Kia Rhino (3 axles)                               ;26
+85 kg sack                                        ;0.136
+Kia Rhino (2 axles)                               ;20
+Pick-up                                           ;1
+90 kg sack                                        ;0.144
+95 kg sack                                        ;0.152

@@ -1,0 +1,81 @@
+unit;volume_m3
+1 liter                                           ;0.001
+10 kg sack                                        ;0.016
+10 liter                                          ;0.01
+100 kg sack                                       ;0.16
+100 liter                                         ;0.1
+110 kg sack                                       ;0.176
+120 kg sack                                       ;0.192
+120 liter                                         ;0.12
+125 kg sack                                       ;0.2
+140 kg sack                                       ;0.224
+15 kg sack                                        ;0.024
+15 liter                                          ;0.015
+150 kg sack                                       ;0.24
+160 kg sack                                       ;0.256
+190 kg sack                                       ;0.304
+20 kg sack                                        ;0.032
+20 liter                                          ;0.02
+200 kg sack                                       ;0.32
+200 liter                                         ;0.2
+25 kg sack                                        ;0.04
+3 liter                                           ;0.003
+30 liter                                          ;0.03
+300 kg sack                                       ;0.48
+4 kg sack                                         ;0.0064
+40 kg sack                                        ;0.064
+400 kg sack                                       ;0.64
+5 kg sack                                         ;0.008
+5 liter                                           ;0.005
+50 kg sack                                        ;0.08
+50 liter                                          ;0.05
+500 kg sack                                       ;0.8
+60 kg sack                                        ;0.096
+75 kg sack                                        ;0.12
+8 kg sack                                         ;0.0128
+Banana box                                        ;0.05
+Basin / Tasse large                               ;0.048
+Basin / Tasse medium                              ;0.04
+Basin / Tasse small                               ;0.028
+Basket (Kika large)                               ;0.02
+Basket (Kika medium)                              ;0.0125
+Basket (Kika small)                               ;0.005
+Boot                                              ;0.5
+Bowl                                              ;0.004
+Bucket                                            ;0.03
+Cage (Kenja large)                                ;0.03
+Cage (Kenja medium)                               ;0.02
+Cage (Kenja small)                                ;0.015
+Carina                                            ;0.5
+Carton (Medium)                                   ;0.1
+Coaster                                           ;9.04
+Corolla                                           ;0.5
+Dyna 100                                          ;10
+Dyna 150                                          ;10
+Dyna 200                                          ;10
+Dyna 250                                          ;10
+Dyna 300                                          ;10
+Fish box (imported fish)                          ;0.04
+Fish box (local)                                  ;0.12
+Hiace                                             ;9.04
+Liteace                                           ;9.04
+Onion sack (net)                                  ;0.04
+Passenger Car                                     ;9.04
+Pick-up                                           ;1
+Picnic                                            ;9.04
+sacks and motor                                   ;0.012
+Taximoto (motorking)                              ;1.7
+Tercel                                            ;0.5
+Tomato box / Caisse de tomate (large)             ;0.1
+Tomato box / Caisse de tomate (medium)            ;0.07
+Tomato box / Caisse de tomate (small)             ;0.03
+Truck                                             ;37
+Truck/Camion (2 axles)                            ;36
+Truck/Camion (3 axles)                            ;38
+Dyna                                              ;10
+Basket / Panier small                             ;0.015
+Basket / Panier large                             ;0.02
+2 liter                                           ;0.002
+20 liter bucket                                   ;0.02
+Taxi                                              ;0.5
+Basket / Panier medium                            ;0.02

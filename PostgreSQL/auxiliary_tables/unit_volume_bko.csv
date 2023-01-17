@@ -1,0 +1,75 @@
+unit;volume_m3
+10 kg sack                                        ;0.016
+100 kg sack                                       ;0.16
+120 kg sack                                       ;0.192
+140 kg sack                                       ;0.224
+15 kg sack                                        ;0.024
+150 kg sack                                       ;0.24
+20 kg sack                                        ;0.032
+200 kg sack                                       ;0.32
+25 kg sack                                        ;0.04
+250 kg sack                                       ;0.4
+30 kg sack                                        ;0.048
+40 kg sack                                        ;0.064
+45 kg sack                                        ;0.072
+48 kg sack                                        ;0.0768
+50 kg sack                                        ;0.08
+60 kg sack                                        ;0.096
+70 kg sack                                        ;0.112
+80 kg sack                                        ;0.128
+Alonka                                            ;0.012
+Baché                                             ;5.07
+Banana box                                        ;0.05
+Basin / Tasse (large)                             ;0.048
+Basin / Tasse (medium)                            ;0.04
+Basin / Tasse (small)                             ;0.028
+Basin medium                                      ;0.04
+Basket / Panier large                             ;0.3
+Basket / Panier medium                            ;0.2
+Basket / Panier small                             ;0.08
+Bowl                                              ;0.004
+Bucket                                            ;0.03
+Calabash                                          ;0.004
+Carton (apple)                                    ;0.04
+Carton (banana)                                   ;0.1
+Carton (cigarette Dunhill)                        ;0.08
+Carton (Diago Water)                              ;0.03
+Carton (dry local fish)                           ;0.45
+Carton (fresh local fish)                         ;0.45
+Carton (garlic)                                   ;0.02
+Carton (imported fish)                            ;0.04
+Carton (Kirene Water)                             ;0.03
+Carton (large)                                    ;0.4
+Carton (medium)                                   ;0.08
+Carton (Oasis Water)                              ;0.03
+Carton (orange)                                   ;0.025
+Carton (pineapple)                                ;0.01
+Carton (small)                                    ;0.01
+Carton (Spaghetti)                                ;0.01
+Carton (tea)                                      ;0.01
+Carton (Vitale Water)                             ;0.03
+Donkey cart                                       ;1.7
+Handtruck (Pousse Pousse)                         ;0.5
+Horse cart                                        ;1.7
+Kia (normal)                                      ;9
+Onion sack (net)                                  ;0.04
+Personal car                                      ;0.5
+Pick-up                                           ;1
+Plastik bag                                       ;0.012
+Porte bagage (Sotrama)                            ;9.04
+Sotrama                                           ;9.04
+Taxi                                              ;0.5
+Taxi (coffre)                                     ;0.5
+Taxi (porte bagagge)                              ;0.5
+Taximoto (motorking)                              ;1.7
+Tomato box / Caisse de tomate (large)             ;0.1
+Tomato box / Caisse de tomate (medium)            ;0.07
+Tomato box / Caisse de tomate (small)             ;0.03
+Tractor                                           ;21
+Truck                                             ;37
+Truck/Camion                                      ;37
+Truck/Camion (2 axles)                            ;36
+Truck/Camion (3 axles)                            ;38
+Wooden box / Caisse (medium)                      ;0.07
+Wooden box / Caisse (small)                       ;0.03
+80 Kg sack                                        ;0.128

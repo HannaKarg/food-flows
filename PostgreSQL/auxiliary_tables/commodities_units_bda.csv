@@ -1,0 +1,76 @@
+commodity_id;commodity_name;unit;quantity_kg_no_livestock
+29;Banana                                                                                              ;Bunch (Regime)                                    ;20
+11;Cabbage                                                                                             ;Piece                                             ;0.728
+7;Cassava                                                                                             ;Piece                                             ;2.046
+7;Cassava                                                                                             ;Tuber                                             ;2.046
+27;Cattle                                                                                              ;Animal                                            ;1
+27;Cattle                                                                                              ;Articulator/Remorque (4 axles)                    ;40
+27;Cattle                                                                                              ;Articulator/Remorque (5 axles)                    ;40
+27;Cattle                                                                                              ;Articulator/Remorque (6 axles)                    ;40
+27;Cattle                                                                                              ;Pick-up                                           ;1
+27;Cattle                                                                                              ;Taxi                                              ;1
+27;Cattle                                                                                              ;Taximoto (motorking)                              ;1
+27;Cattle                                                                                              ;Truck                                             ;20
+144;Chicken                                                                                             ;Cage (Kenja small)                                ;5
+144;Chicken                                                                                             ;Cage (Kenja medium)                               ;10
+144;Chicken                                                                                             ;Cage (Kenja large)                                ;20
+144;Chicken                                                                                             ;Animal                                            ;1
+144;Chicken                                                                                             ;Pick-up                                           ;300
+144;Chicken                                                                                             ;Taximoto (motorking)                              ;400
+144;Chicken                                                                                             ;Truck/Camion (2 axles)                            ;11500
+144;Chicken                                                                                             ;Truck/Camion (3 axles)                            ;11500
+144;Chicken                                                                                             ;100 kg sack                                       ;50
+144;Chicken                                                                                             ;50 kg sack                                        ;25
+144;Chicken                                                                                             ;Basket (Kika large)                               ;20
+144;Chicken                                                                                             ;Basket (Kika medium)                              ;10
+144;Chicken                                                                                             ;Basket (Kika small)                               ;5
+90;Cucumber                                                                                            ;Piece                                             ;0.378
+12;Eggplant (garden egg) (aubergine)                                                                   ;Piece                                             ;0.287
+26;Goat                                                                                                ;50 kg sack                                        ;2
+26;Goat                                                                                                ;Animal                                            ;1
+26;Goat                                                                                                ;Articulator/Remorque (4 axles)                    ;200
+26;Goat                                                                                                ;Articulator/Remorque (5 axles)                    ;200
+26;Goat                                                                                                ;Articulator/Remorque (6 axles)                    ;200
+26;Goat                                                                                                ;Taximoto (motorking)                              ;10
+26;Goat                                                                                                ;Truck                                             ;150
+26;Goat                                                                                                ;Truck/Camion (2 axles)                            ;150
+26;Goat                                                                                                ;Truck/Camion (3 axles)                            ;150
+26;Goat                                                                                                ;Basket (Kika large)                               ;2
+196;Green bean (haricot)                                                                                ;Bundle                                            ;13.928
+283;Green spice (consising of basil, parsley and celery)                                                ;Bundle                                            ;5.2
+40;Guinea fowl (Pintande)                                                                              ;Animal                                            ;1
+40;Guinea fowl (Pintande)                                                                              ;Cage (Kenja small)                                ;5
+40;Guinea fowl (Pintande)                                                                              ;Cage (Kenja medium)                               ;10
+40;Guinea fowl (Pintande)                                                                              ;Cage (Kenja large)                                ;20
+269;Leeks                                                                                               ;Bundle                                            ;16
+84;Mango                                                                                               ;Piece                                             ;0.5
+23;Orange                                                                                              ;Piece                                             ;0.1
+59;Pig                                                                                                 ;100 kg sack                                       ;2
+59;Pig                                                                                                 ;Boot                                              ;5
+59;Pig                                                                                                 ;Basket (Kika medium)                              ;1
+59;Pig                                                                                                 ;Truck                                             ;150
+59;Pig                                                                                                 ;Taximoto (motorking)                              ;10
+59;Pig                                                                                                 ;Dyna 250                                          ;50
+59;Pig                                                                                                 ;Basket (Kika large)                               ;2
+61;Pineapple                                                                                           ;Piece                                             ;1.138
+28;Plantain                                                                                            ;Bunch (Regime)                                    ;25
+95;Potato                                                                                              ;Tuber                                             ;0.15
+30;Sheep                                                                                               ;100 kg sack                                       ;4
+30;Sheep                                                                                               ;25 kg sack                                        ;1
+30;Sheep                                                                                               ;50 kg sack                                        ;2
+30;Sheep                                                                                               ;Animal                                            ;1
+30;Sheep                                                                                               ;Articulator/Remorque (4 axles)                    ;200
+30;Sheep                                                                                               ;Articulator/Remorque (5 axles)                    ;200
+30;Sheep                                                                                               ;Articulator/Remorque (6 axles)                    ;200
+30;Sheep                                                                                               ;Bus                                               ;100
+30;Sheep                                                                                               ;Pick-up                                           ;10
+30;Sheep                                                                                               ;Taximoto (motorking)                              ;10
+30;Sheep                                                                                               ;Truck                                             ;150
+30;Sheep                                                                                               ;Truck/Camion (2 axles)                            ;150
+30;Sheep                                                                                               ;Truck/Camion (3 axles)                            ;150
+32;Sweet potato                                                                                        ;Tuber                                             ;0.3
+21;Watermelon                                                                                          ;Piece                                             ;4.314
+6;Yam                                                                                                 ;Tuber                                             ;3
+97;Zucchini                                                                                            ;Piece                                             ;0.4
+49;Pawpaw (papaya)                                                                                     ;Piece                                             ;0.5
+59;Pig                                                                                                 ;Animal                                            ;1

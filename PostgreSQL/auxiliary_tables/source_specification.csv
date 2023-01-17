@@ -1,0 +1,209 @@
+source_specification;source_specification_corrected
+Abattoir                                                                                            ;Abattoir                                                                                            
+ABATOIR                                                                                             ;Abattoir                                                                                            
+Slaughterhouse(abbatoire)                                                                           ;Abattoir                                                                                            
+Slaughterhouse(abbatoire                                                                            ;Abattoir                                                                                            
+Slaughterhouse (abattoir)                                                                           ;Abattoir                                                                                            
+slaughterhouse                                                                                      ;Abattoir                                                                                            
+Divers Abatoire                                                                                     ;Abattoir                                                                                            
+Battoir                                                                                             ;Abattoir                                                                                            
+Abbatoir                                                                                            ;Abattoir                                                                                            
+Abatoire                                                                                            ;Abattoir                                                                                            
+factory                                                                                             ;Factory                                                                                             
+Usine                                                                                               ;Factory                                                                                             
+Factory(Grand Moulin)                                                                               ;Factory                                                                                             
+CMDT(Usine)                                                                                         ;Factory                                                                                             
+CMDT factory                                                                                        ;Factory                                                                                             
+Farm                                                                                                ;Farm                                                                                                
+F                                                                                                   ;Farm                                                                                                
+other fields                                                                                        ;Farm                                                                                                
+ranch                                                                                               ;Farm                                                                                                
+garden                                                                                              ;Farm                                                                                                
+field                                                                                               ;Farm                                                                                                
+Champ                                                                                               ;Farm                                                                                                
+poultry farm                                                                                        ;Farm                                                                                                
+Verger                                                                                              ;Farm                                                                                                
+Orchard(Verger)                                                                                     ;Farm                                                                                                
+Gardin                                                                                              ;Farm                                                                                                
+Ferme(in french)                                                                                    ;Farm                                                                                                
+Ferme Avicole                                                                                       ;Farm                                                                                                
+Ferme                                                                                               ;Farm                                                                                                
+Farm(champs)                                                                                        ;Farm                                                                                                
+Farm (champs)                                                                                       ;Farm                                                                                                
+Forest                                                                                              ;Forest/Bush                                                                                         
+Bush                                                                                                ;Forest/Bush                                                                                         
+Wilds(Brousse)                                                                                      ;Forest/Bush                                                                                         
+Wilds (Brousse)                                                                                     ;Forest/Bush                                                                                         
+Wilds                                                                                               ;Forest/Bush                                                                                         
+Wild                                                                                                ;Forest/Bush                                                                                         
+Forêt                                                                                               ;Forest/Bush                                                                                         
+Home                                                                                                ;Home                                                                                                
+Home made                                                                                           ;Home                                                                                                
+House                                                                                               ;Home                                                                                                
+Home produce                                                                                        ;Home                                                                                                
+Village                                                                                             ;Home                                                                                                
+Home (Maison)                                                                                       ;Home                                                                                                
+Family                                                                                              ;Home                                                                                                
+Cattle market                                                                                       ;Livestock market                                                                                    
+animal market                                                                                       ;Livestock market                                                                                    
+Grabal                                                                                              ;Livestock market                                                                                    
+Garbal                                                                                              ;Livestock market                                                                                    
+Market                                                                                              ;Market                                                                                              
+M                                                                                                   ;Market                                                                                              
+Food market                                                                                         ;Market                                                                                              
+congelcam                                                                                           ;Market                                                                                              
+Foot market                                                                                         ;Market                                                                                              
+Cold store                                                                                          ;Market                                                                                              
+Fish point                                                                                          ;Market                                                                                              
+Timber Market                                                                                       ;Market                                                                                              
+Shop                                                                                                ;Market                                                                                              
+Market(marché)                                                                                      ;Market                                                                                              
+Market (marché)                                                                                     ;Market                                                                                              
+march                                                                                               ;Market                                                                                              
+Halles                                                                                              ;Market                                                                                              
+big market                                                                                          ;Market                                                                                              
+banana market                                                                                       ;Market                                                                                              
+Mill                                                                                                ;Mill                                                                                                
+rice mill                                                                                           ;Mill                                                                                                
+Rice mail                                                                                           ;Mill                                                                                                
+Grinding mill                                                                                       ;Mill                                                                                                
+Moulin                                                                                              ;Mill                                                                                                
+G M M                                                                                               ;Mill                                                                                                
+Port                                                                                                ;Port                                                                                                
+TEMA PORT                                                                                           ;Port                                                                                                
+habour                                                                                              ;Port                                                                                                
+Harbour                                                                                             ;Port                                                                                                
+Port(Harbour)                                                                                       ;Port                                                                                                
+Port Mali                                                                                           ;Port                                                                                                
+Port (Harbor)                                                                                       ;Port                                                                                                
+River                                                                                               ;River                                                                                               
+Fleuve                                                                                              ;River                                                                                               
+Roadside                                                                                            ;Roadside                                                                                            
+Road side                                                                                           ;Roadside                                                                                            
+Hospital ronudabout                                                                                 ;Roadside                                                                                            
+Foncha Below                                                                                        ;Roadside                                                                                            
+Mile 4                                                                                              ;Roadside                                                                                            
+Road                                                                                                ;Roadside                                                                                            
+commercial avenue                                                                                   ;Roadside                                                                                            
+City chemist                                                                                        ;Roadside                                                                                            
+Sonac street                                                                                        ;Roadside                                                                                            
+peage                                                                                               ;Roadside                                                                                            
+JUNCTION                                                                                            ;Roadside                                                                                            
+Toure                                                                                               ;Roadside                                                                                            
+Tour                                                                                                ;Roadside                                                                                            
+Side of road                                                                                        ;Roadside                                                                                            
+Rood                                                                                                ;Roadside                                                                                            
+Poste                                                                                               ;Roadside                                                                                            
+Post                                                                                                ;Roadside                                                                                            
+Bord de route                                                                                       ;Roadside                                                                                            
+Bord de la route                                                                                    ;Roadside                                                                                            
+Station/Park/Agency                                                                                 ;Station                                                                                             
+Park                                                                                                ;Station                                                                                             
+Station                                                                                             ;Station                                                                                             
+Agency                                                                                              ;Station                                                                                             
+Junction Park                                                                                       ;Station                                                                                             
+Avenir Park                                                                                         ;Station                                                                                             
+Car Park                                                                                            ;Station                                                                                             
+shell station                                                                                       ;Station                                                                                             
+Gare                                                                                                ;Station                                                                                             
+car station                                                                                         ;Station                                                                                             
+ouaga station                                                                                       ;Station                                                                                             
+lorry station                                                                                       ;Station                                                                                             
+METRO MASS STATION                                                                                  ;Station                                                                                             
+V V I P STATION                                                                                     ;Station                                                                                             
+Station (Gare)                                                                                      ;Station                                                                                             
+Gare Kolondieba                                                                                     ;Station                                                                                             
+Autogare                                                                                            ;Station                                                                                             
+Auto gare                                                                                           ;Station                                                                                             
+Zone Industrielle2016                                                                               ;Town                                                                                                
+Zone Industrielle                                                                                   ;Town                                                                                                
+Ville(Town/City)                                                                                    ;Town                                                                                                
+Ville                                                                                               ;Town                                                                                                
+viile                                                                                               ;Town                                                                                                
+Town                                                                                                ;Town                                                                                                
+Quartier                                                                                            ;Town                                                                                                
+Qartier                                                                                             ;Town                                                                                                
+City                                                                                                ;Town                                                                                                
+Warehouse                                                                                           ;Warehouse                                                                                           
+Store                                                                                               ;Warehouse                                                                                           
+W                                                                                                   ;Warehouse                                                                                           
+Private warehouse                                                                                   ;Warehouse                                                                                           
+Farmer's Warehouse                                                                                  ;Warehouse                                                                                           
+Wire house                                                                                          ;Warehouse                                                                                           
+In stock                                                                                            ;Warehouse                                                                                           
+magasim                                                                                             ;Warehouse                                                                                           
+Instock                                                                                             ;Warehouse                                                                                           
+Ware house                                                                                          ;Warehouse                                                                                           
+Store(Boutique)                                                                                     ;Warehouse                                                                                           
+Stock GICI                                                                                          ;Warehouse                                                                                           
+Stock Factory                                                                                       ;Warehouse                                                                                           
+Stock                                                                                               ;Warehouse                                                                                           
+OPAM                                                                                                ;Warehouse                                                                                           
+Magasin de Distribution                                                                             ;Warehouse                                                                                           
+Magasin                                                                                             ;Warehouse                                                                                           
+Entrepot                                                                                            ;Warehouse                                                                                           
+Depot                                                                                               ;Warehouse                                                                                           
+Boutique                                                                                            ;Warehouse                                                                                           
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
