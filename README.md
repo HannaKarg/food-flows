@@ -1,1 +1,3 @@
 # food-flows
+
+This study collected data on food flows in the four West African cities Tamale (Ghana), Ouagadougou (Burkina Faso), Bamako (Mali), and Bamenda (Cameroon) over three seasons. Roads are the major channel for food transportation in the region; therefore, the dataset contains flows mostly collected on the access roads to the cities, where food transported by vehicles were recorded during entry and exit. The surveys took place for one week on average in the peak (harvest), lean (hot), and rainy seasons. The resulting dataset contains more than 100,000 data entries for the major 46 unprocessed food commodities in the region. Specifically, type of transport, quantity, source, and destination of food flows were recorded.
