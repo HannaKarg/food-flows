@@ -1,4 +1,643 @@
---- generate data
+--- Generating the final datasets
+--- Below, tables are created from files. Note that the original data is not made available.
+
+CREATE EXTENSION postgis;
+
+CREATE TABLE public.comm_density_bda (
+    commodity_id integer NOT NULL,
+    commodity_name character(100),
+    density_kg_m3 double precision
+);
+
+CREATE TABLE public.comm_density_bko (
+    commodity_id integer NOT NULL,
+    commodity_name character(100),
+    density_kg_m3 double precision
+);
+
+CREATE TABLE public.comm_density_ouaga (
+    commodity_id integer NOT NULL,
+    commodity_name character(100),
+    density_kg_m3 double precision
+);
+
+CREATE TABLE public.comm_density_tle (
+    commodity_id integer NOT NULL,
+    commodity_name character(100),
+    density_kg_m3 double precision
+);
+
+CREATE TABLE public.commodities_kg_tonne_art_bda (
+    unit character(50) NOT NULL,
+    quantity_kg_no_livestock double precision
+);
+
+CREATE TABLE public.commodities_kg_tonne_art_bko (
+    unit character(50) NOT NULL,
+    quantity_kg_no_livestock double precision
+);
+
+CREATE TABLE public.commodities_kg_tonne_art_ouaga (
+    unit character(50) NOT NULL,
+    quantity_kg_no_livestock double precision
+);
+
+CREATE TABLE public.commodities_kg_tonne_art_tle (
+    unit character(50) NOT NULL,
+    quantity_kg_no_livestock double precision
+);
+
+CREATE TABLE public.commodities_units_bda (
+    commodity_id integer NOT NULL,
+    commodity_name character(100),
+    unit character(50) NOT NULL,
+    quantity_kg_no_livestock double precision
+);
+
+CREATE TABLE public.commodities_units_bko (
+    commodity_id integer NOT NULL,
+    commodity_name character(100),
+    unit character(50) NOT NULL,
+    quantity_kg_no_livestock double precision
+);
+
+CREATE TABLE public.commodities_units_ouaga (
+    commodity_id integer NOT NULL,
+    commodity_name character(100),
+    unit character(50) NOT NULL,
+    quantity_kg_no_livestock double precision
+);
+
+CREATE TABLE public.commodities_units_tle (
+    commodity_id integer NOT NULL,
+    commodity_name character(100),
+    unit character(50) NOT NULL,
+    quantity_kg_no_livestock double precision
+);
+
+CREATE TABLE public.unit_volume_bda (
+    unit character(50) NOT NULL,
+    volume_m3 double precision
+);
+
+CREATE TABLE public.unit_volume_ouaga (
+    unit character(50) NOT NULL,
+    volume_m3 double precision
+);
+
+CREATE TABLE public.unit_volume_tle (
+    unit character(50) NOT NULL,
+    volume_m3 double precision
+);
+
+CREATE TABLE public.unit_volume_bko (
+    unit character(50) NOT NULL,
+    volume_m3 double precision
+);
+
+CREATE TABLE public.duplicates_bda (
+    duplicate_id integer NOT NULL,
+    duplicate_reason character(100)
+);
+
+CREATE TABLE public.duplicates_bko (
+    duplicate_id integer NOT NULL,
+    duplicate_reason character(100)
+);
+
+CREATE TABLE public.duplicates_tle (
+    duplicate_id integer NOT NULL,
+    duplicate_reason character(100)
+);
+
+CREATE TABLE public.food_flow_matter (
+    commodity_id integer NOT NULL,
+    commodity_name character(100),
+    commodity_name_gen character(50),
+    commodity_category character(50)
+);
+
+CREATE TABLE public.source_specification (
+    source_specification character(100),
+    source_specification_corrected character(100)
+);
+
+CREATE TABLE public.transport (
+    transport_old character(50),
+    transport_new character(50)
+);
+
+CREATE TABLE public.metadata_bda (
+    sheet_number character(50) NOT NULL,
+    year integer,
+    season character(50),
+    daytime character(50),
+    no_days integer
+);
+
+CREATE TABLE public.metadata_bko (
+    sheet_number character(50) NOT NULL,
+    year integer,
+    season character(50),
+    daytime character(50),
+    no_days integer
+);
+
+CREATE TABLE public.metadata_ouaga (
+    sheet_number character(50) NOT NULL,
+    year integer,
+    season character(50),
+    daytime character(50),
+    no_days integer
+);
+
+CREATE TABLE public.metadata_tle (
+    sheet_number character(50) NOT NULL,
+    year integer,
+    season character(50),
+    daytime character(50),
+    no_days integer
+);
+
+CREATE TABLE public.location_characteristics_tle (
+    id integer NOT NULL,
+    label character(100),
+    type character(50),
+    spatial_category character(50),
+    distance_to_focal_city_km double precision,
+    fid_africapolis_near_settlement integer,
+    distance_to_next_settlement_km double precision,
+    size_africapolis_near_settlement integer,
+    name_africapolis_near_settlement character(50),
+    classification_rural_urban character(50),
+    spatial_category_revised character(50),
+    travel_time_h double precision
+);
+
+CREATE TABLE public.location_characteristics_ouaga (
+    id integer NOT NULL,
+    label character(100),
+    type character(50),
+    spatial_category character(50),
+    distance_to_focal_city_km double precision,
+    fid_africapolis_near_settlement integer,
+    distance_to_next_settlement_km double precision,
+    size_africapolis_near_settlement integer,
+    name_africapolis_near_settlement character(50),
+    classification_rural_urban character(50),
+    spatial_category_revised character(50),
+    travel_time_h double precision
+);
+
+CREATE TABLE public.location_characteristics_bda (
+    id integer NOT NULL,
+    label character(100),
+    type character(50),
+    spatial_category character(50),
+    distance_to_focal_city_km double precision,
+    fid_africapolis_near_settlement integer,
+    distance_to_next_settlement_km double precision,
+    size_africapolis_near_settlement integer,
+    name_africapolis_near_settlement character(50),
+    classification_rural_urban character(50),
+    spatial_category_revised character(50),
+    travel_time_h double precision
+);
+
+CREATE TABLE public.location_characteristics_bko (
+    id integer NOT NULL,
+    label character(100),
+    type character(50),
+    spatial_category character(50),
+    distance_to_focal_city_km double precision,
+    fid_africapolis_near_settlement integer,
+    distance_to_next_settlement_km double precision,
+    size_africapolis_near_settlement integer,
+    name_africapolis_near_settlement character(50),
+    classification_rural_urban character(50),
+    spatial_category_revised character(50),
+    travel_time_h double precision
+);
+
+CREATE TABLE public.sec_data_ouaga (
+    id integer NOT NULL,
+    name_of_enumerator character(50),
+    data_collection_name character(50),
+    direction character(50),
+    transportation_system character(50),
+    type_of_matter integer,
+    quantity double precision,
+    unit character(50),
+    source integer,
+    source_specification character(50),
+    destination integer,
+    date date,
+    "time" time without time zone,
+    remarks character(50),
+    sheet_number_new character(50),
+    number integer
+);
+
+CREATE TABLE public.loumbila_data_ouaga (
+    id integer NOT NULL,
+    transport_system character(50),
+    type_of_matter character(50),
+    assigned_source_name character(50),
+    assigned_source_id integer,
+    assigned_destination_name character(50),
+    assigned_destination_id integer
+);
+
+
+--- this is the original data, which is not made available
+
+CREATE TABLE public.food_flow_bamenda (
+    id integer NOT NULL,
+    fk integer DEFAULT 0,
+    creator integer,
+    created timestamp with time zone DEFAULT now() NOT NULL,
+    last_editor integer,
+    last_edited timestamp with time zone,
+    sheet_number character varying,
+    name_of_enumerator character varying,
+    data_collection_name character varying NOT NULL,
+    direction character varying NOT NULL,
+    number integer NOT NULL,
+    transportation_system character varying NOT NULL,
+    type_of_matter integer,
+    matter_other character varying,
+    quantity numeric,
+    unit character varying,
+    source integer,
+    source_other character varying,
+    source_specification character varying,
+    destination integer,
+    destination_other character varying,
+    transportation_number character varying,
+    date date NOT NULL,
+    "time" time without time zone,
+    remarks character varying,
+    general_notes text,
+    data_collection_type character varying NOT NULL
+);
+
+CREATE TABLE public.food_flow_bamako (
+    id integer NOT NULL,
+    fk integer DEFAULT 0,
+    creator integer,
+    created timestamp with time zone DEFAULT now() NOT NULL,
+    last_editor integer,
+    last_edited timestamp with time zone,
+    sheet_number character varying,
+    name_of_enumerator character varying,
+    data_collection_name character varying NOT NULL,
+    direction character varying NOT NULL,
+    number integer NOT NULL,
+    transportation_system character varying NOT NULL,
+    type_of_matter integer,
+    matter_other character varying,
+    quantity numeric,
+    unit character varying,
+    source integer,
+    source_other character varying,
+    source_specification character varying,
+    destination integer,
+    destination_other character varying,
+    transportation_number character varying,
+    date date NOT NULL,
+    "time" time without time zone,
+    remarks character varying,
+    general_notes text
+);
+
+CREATE TABLE public.food_flow_ouaga (
+    id integer NOT NULL,
+    fk integer DEFAULT 0,
+    creator integer,
+    created timestamp with time zone DEFAULT now() NOT NULL,
+    last_editor integer,
+    last_edited timestamp with time zone,
+    sheet_number integer,
+    name_of_enumerator character varying,
+    data_collection_name character varying,
+    direction character varying,
+    transportation_system character varying,
+    type_of_matter integer,
+    quantity double precision,
+    unit character varying,
+    source integer,
+    source_other character varying,
+    source_specification character varying,
+    destination integer,
+    destination_other character varying,
+    transportation_number character varying,
+    date date,
+    "time" time without time zone,
+    remarks character varying,
+    general_notes text,
+    number integer,
+    matter_other character varying,
+    sheet_number_new text
+);
+
+--- this is the original data for Tamale
+CREATE TABLE public.food_flow (
+    id integer NOT NULL,
+    fk integer DEFAULT 0,
+    creator integer,
+    created timestamp with time zone DEFAULT now() NOT NULL,
+    last_editor integer,
+    last_edited timestamp with time zone,
+    data_collection_type character varying,
+    data_collection_name character varying,
+    transportation_system character varying,
+    type_of_matter integer,
+    quantity double precision,
+    unit character varying,
+    source integer,
+    destination integer,
+    transportation_number character varying,
+    date date,
+    "time" time without time zone,
+    remarks character varying,
+    general_notes text,
+    name_of_enumerator character varying,
+    source_other character varying,
+    destination_other character varying,
+    sheet_number integer,
+    direction character varying,
+    source_specification character varying,
+    matter_other character varying,
+    sheet_number_new character varying,
+    number integer,
+    duplicates text
+);
+
+--- these are the spatial data connected to sourec and destination
+
+CREATE TABLE public.food_flow_locations_bamako (
+    id integer NOT NULL,
+    fk integer DEFAULT 0,
+    creator integer,
+    created timestamp with time zone DEFAULT now() NOT NULL,
+    last_editor integer,
+    last_edited timestamp with time zone,
+    area numeric,
+    perimeter numeric,
+    length numeric,
+    latitude numeric,
+    longitude numeric,
+    geom public.geometry(Geometry,4326),
+    label character varying,
+    type character varying,
+    source character varying,
+    remarks character varying
+);
+
+CREATE TABLE public.food_flow_locations_bamenda (
+    id integer NOT NULL,
+    fk integer DEFAULT 0,
+    creator integer,
+    created timestamp with time zone DEFAULT now() NOT NULL,
+    last_editor integer,
+    last_edited timestamp with time zone,
+    area numeric,
+    perimeter numeric,
+    length numeric,
+    latitude numeric,
+    longitude numeric,
+    geom public.geometry(Geometry,4326),
+    fclass_osm character varying,
+    label character varying,
+    source character varying,
+    type character varying,
+    remarks character varying
+);
+
+CREATE TABLE public.food_flow_locations_ouaga (
+    id integer NOT NULL,
+    type character varying,
+    source character varying,
+    label character varying,
+    remarks character varying,
+    geom public.geometry(Point,4326),
+    fk integer,
+    creator integer,
+    created timestamp with time zone,
+    last_editor integer,
+    last_edited timestamp with time zone,
+    area double precision,
+    perimeter double precision,
+    length double precision,
+    latitude double precision,
+    longitude double precision
+);
+
+--- spatial data for Tamale
+
+CREATE TABLE public.food_flow_locations_spatial (
+    id integer NOT NULL,
+    value character varying,
+    label character varying,
+    source character varying,
+    remarks character varying,
+    fk integer,
+    creator integer,
+    created timestamp with time zone,
+    last_editor integer,
+    last_edited timestamp with time zone,
+    area double precision,
+    perimeter double precision,
+    length double precision,
+    latitude double precision,
+    longitude double precision,
+    geom public.geometry(Geometry,4326)
+);
+
+CREATE TABLE public.spatial_category_bda (
+    id integer NOT NULL,
+    spatial_category character(50)
+);
+
+CREATE TABLE public.spatial_category_bko (
+    id integer NOT NULL,
+    spatial_category character(50)
+);
+
+CREATE TABLE public.spatial_category_ouaga (
+    id integer NOT NULL,
+    spatial_category character(50)
+);
+
+CREATE TABLE public.spatial_category_tle (
+    id integer NOT NULL,
+    spatial_category character(50)
+);
+
+ALTER TABLE ONLY public.comm_density_bda
+    ADD CONSTRAINT comm_density_bda_pkey PRIMARY KEY (commodity_id);
+
+ALTER TABLE ONLY public.comm_density_bko
+    ADD CONSTRAINT comm_density_bko_pkey PRIMARY KEY (commodity_id);
+
+ALTER TABLE ONLY public.comm_density_ouaga
+    ADD CONSTRAINT comm_density_ouaga_pkey PRIMARY KEY (commodity_id);
+
+ALTER TABLE ONLY public.comm_density_tle
+    ADD CONSTRAINT comm_density_tle_pkey PRIMARY KEY (commodity_id);
+
+ALTER TABLE ONLY public.commodities_kg_tonne_art_bda
+    ADD CONSTRAINT commodities_kg_tonne_art_bda_pkey PRIMARY KEY (unit);
+
+ALTER TABLE ONLY public.commodities_kg_tonne_art_bko
+    ADD CONSTRAINT commodities_kg_tonne_art_bko_pkey PRIMARY KEY (unit);
+
+ALTER TABLE ONLY public.commodities_kg_tonne_art_ouaga
+    ADD CONSTRAINT commodities_kg_tonne_art_ouaga_pkey PRIMARY KEY (unit);
+
+ALTER TABLE ONLY public.commodities_kg_tonne_art_tle
+    ADD CONSTRAINT commodities_kg_tonne_art_tle_pkey PRIMARY KEY (unit);
+
+ALTER TABLE ONLY public.commodities_units_bda
+    ADD CONSTRAINT commodities_units_bda_pkey PRIMARY KEY (commodity_id, unit);
+
+ALTER TABLE ONLY public.commodities_units_bko
+    ADD CONSTRAINT commodities_units_bko_pkey PRIMARY KEY (commodity_id, unit);
+
+ALTER TABLE ONLY public.commodities_units_ouaga
+    ADD CONSTRAINT commodities_units_ouaga_pkey PRIMARY KEY (commodity_id, unit);
+
+ALTER TABLE ONLY public.commodities_units_tle
+    ADD CONSTRAINT commodities_units_tle_pkey PRIMARY KEY (commodity_id, unit);
+
+ALTER TABLE ONLY public.duplicates_bda
+    ADD CONSTRAINT duplicates_bda_pkey PRIMARY KEY (duplicate_id);
+
+ALTER TABLE ONLY public.duplicates_bko
+    ADD CONSTRAINT duplicates_bko_pkey PRIMARY KEY (duplicate_id);
+
+ALTER TABLE ONLY public.duplicates_tle
+    ADD CONSTRAINT duplicates_tle_pkey PRIMARY KEY (duplicate_id);
+
+ALTER TABLE ONLY public.food_flow_locations_bamako
+    ADD CONSTRAINT food_flow_locations_bamako_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.food_flow_locations_bamenda
+    ADD CONSTRAINT food_flow_locations_bamenda_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.food_flow_locations_ouaga
+    ADD CONSTRAINT food_flow_locations_ouaga_id_key UNIQUE (id);
+
+ALTER TABLE ONLY public.food_flow_locations_ouaga
+    ADD CONSTRAINT food_flow_locations_ouaga_id_key1 UNIQUE (id);
+
+ALTER TABLE ONLY public.food_flow_locations_ouaga
+    ADD CONSTRAINT food_flow_locations_ouaga_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.food_flow_locations_spatial
+    ADD CONSTRAINT food_flow_locations_spatial_id_key UNIQUE (id);
+
+ALTER TABLE ONLY public.food_flow_locations_spatial
+    ADD CONSTRAINT food_flow_locations_spatial_id_key1 UNIQUE (id);
+
+ALTER TABLE ONLY public.food_flow_locations_spatial
+    ADD CONSTRAINT food_flow_locations_spatial_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.food_flow_matter
+    ADD CONSTRAINT food_flow_matter_pkey PRIMARY KEY (commodity_id);
+
+ALTER TABLE ONLY public.location_characteristics_bda
+    ADD CONSTRAINT location_characteristics_bda_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.location_characteristics_bko
+    ADD CONSTRAINT location_characteristics_bko_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.location_characteristics_ouaga
+    ADD CONSTRAINT location_characteristics_ouaga_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.location_characteristics_tle
+    ADD CONSTRAINT location_characteristics_tle_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.loumbila_data_ouaga
+    ADD CONSTRAINT loumbila_data_ouaga_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.metadata_bda
+    ADD CONSTRAINT metadata_bda_pkey PRIMARY KEY (sheet_number);
+
+ALTER TABLE ONLY public.metadata_bko
+    ADD CONSTRAINT metadata_bko_pkey PRIMARY KEY (sheet_number);
+
+ALTER TABLE ONLY public.metadata_ouaga
+    ADD CONSTRAINT metadata_ouaga_pkey PRIMARY KEY (sheet_number);
+
+ALTER TABLE ONLY public.metadata_tle
+    ADD CONSTRAINT metadata_tle_pkey PRIMARY KEY (sheet_number);
+
+ALTER TABLE ONLY public.sec_data_ouaga
+    ADD CONSTRAINT sec_data_ouaga_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.spatial_category_bda
+    ADD CONSTRAINT spatial_category_bda_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.spatial_category_bko
+    ADD CONSTRAINT spatial_category_bko_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.spatial_category_ouaga
+    ADD CONSTRAINT spatial_category_ouaga_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.spatial_category_tle
+    ADD CONSTRAINT spatial_category_tle_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.unit_volume_bda
+    ADD CONSTRAINT unit_volume_bda_pkey PRIMARY KEY (unit);
+	
+ALTER TABLE ONLY public.unit_volume_bko
+    ADD CONSTRAINT unit_volume_bko_pkey PRIMARY KEY (unit);
+
+ALTER TABLE ONLY public.unit_volume_ouaga
+    ADD CONSTRAINT unit_volume_ouaga_pkey PRIMARY KEY (unit);
+
+ALTER TABLE ONLY public.unit_volume_tle
+    ADD CONSTRAINT unit_volume_tle_pkey PRIMARY KEY (unit);
+
+ALTER TABLE ONLY public.food_flow_bamako
+    ADD CONSTRAINT fk_destination_location FOREIGN KEY (destination) REFERENCES public.food_flow_locations_bamako(id);
+
+ALTER TABLE ONLY public.food_flow
+    ADD CONSTRAINT fk_destination_location FOREIGN KEY (destination) REFERENCES public.food_flow_locations_spatial(id);
+
+ALTER TABLE ONLY public.food_flow_ouaga
+    ADD CONSTRAINT fk_destination_location FOREIGN KEY (destination) REFERENCES public.food_flow_locations_ouaga(id);
+
+ALTER TABLE ONLY public.food_flow_bamenda
+    ADD CONSTRAINT fk_destination_location FOREIGN KEY (destination) REFERENCES public.food_flow_locations_bamenda(id);
+
+ALTER TABLE ONLY public.food_flow_bamako
+    ADD CONSTRAINT fk_matter FOREIGN KEY (type_of_matter) REFERENCES public.food_flow_matter(commodity_id);
+
+ALTER TABLE ONLY public.food_flow
+    ADD CONSTRAINT fk_matter FOREIGN KEY (type_of_matter) REFERENCES public.food_flow_matter(commodity_id);
+
+ALTER TABLE ONLY public.food_flow_ouaga
+    ADD CONSTRAINT fk_matter FOREIGN KEY (type_of_matter) REFERENCES public.food_flow_matter(commodity_id);
+
+ALTER TABLE ONLY public.food_flow_bamenda
+    ADD CONSTRAINT fk_matter FOREIGN KEY (type_of_matter) REFERENCES public.food_flow_matter(commodity_id);
+
+ALTER TABLE ONLY public.food_flow_bamako
+    ADD CONSTRAINT fk_source_location FOREIGN KEY (source) REFERENCES public.food_flow_locations_bamako(id);
+
+ALTER TABLE ONLY public.food_flow
+    ADD CONSTRAINT fk_source_location FOREIGN KEY (source) REFERENCES public.food_flow_locations_spatial(id);
+
+ALTER TABLE ONLY public.food_flow_ouaga
+    ADD CONSTRAINT fk_source_location FOREIGN KEY (source) REFERENCES public.food_flow_locations_ouaga(id);
+
+ALTER TABLE ONLY public.food_flow_bamenda
+    ADD CONSTRAINT fk_source_location FOREIGN KEY (source) REFERENCES public.food_flow_locations_bamenda(id);
+
+
+--- generate final dataset
 
 --- Bamenda
 --- join to metadata and matter tables, create views for subsequent analysis:
