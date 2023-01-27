@@ -377,41 +377,20 @@ CREATE TABLE public.food_flow (
 
 CREATE TABLE public.food_flow_locations_bamako (
     id integer NOT NULL,
-    fk integer DEFAULT 0,
-    creator integer,
-    created timestamp with time zone DEFAULT now() NOT NULL,
-    last_editor integer,
-    last_edited timestamp with time zone,
-    area numeric,
-    perimeter numeric,
-    length numeric,
-    latitude numeric,
-    longitude numeric,
-    geom public.geometry(Geometry,4326),
-    label character varying,
     type character varying,
-    source character varying,
-    remarks character varying
+	source character varying,
+    label character varying,
+    remarks character varying,
+	geom public.geometry(Geometry,4326)
 );
 
 CREATE TABLE public.food_flow_locations_bamenda (
     id integer NOT NULL,
-    fk integer DEFAULT 0,
-    creator integer,
-    created timestamp with time zone DEFAULT now() NOT NULL,
-    last_editor integer,
-    last_edited timestamp with time zone,
-    area numeric,
-    perimeter numeric,
-    length numeric,
-    latitude numeric,
-    longitude numeric,
-    geom public.geometry(Geometry,4326),
-    fclass_osm character varying,
-    label character varying,
-    source character varying,
     type character varying,
-    remarks character varying
+	source character varying,
+    label character varying,
+    remarks character varying,
+	geom public.geometry(Geometry,4326)
 );
 
 CREATE TABLE public.food_flow_locations_ouaga (
@@ -420,37 +399,14 @@ CREATE TABLE public.food_flow_locations_ouaga (
     source character varying,
     label character varying,
     remarks character varying,
-    geom public.geometry(Point,4326),
-    fk integer,
-    creator integer,
-    created timestamp with time zone,
-    last_editor integer,
-    last_edited timestamp with time zone,
-    area double precision,
-    perimeter double precision,
-    length double precision,
-    latitude double precision,
-    longitude double precision
+    geom public.geometry(Point,4326)
 );
 
---- spatial data for Tamale
-
-CREATE TABLE public.food_flow_locations_spatial (
+CREATE TABLE public.food_flow_locations_tamale (
     id integer NOT NULL,
-    value character varying,
-    label character varying,
     source character varying,
+	label character varying,
     remarks character varying,
-    fk integer,
-    creator integer,
-    created timestamp with time zone,
-    last_editor integer,
-    last_edited timestamp with time zone,
-    area double precision,
-    perimeter double precision,
-    length double precision,
-    latitude double precision,
-    longitude double precision,
     geom public.geometry(Geometry,4326)
 );
 
@@ -534,14 +490,14 @@ ALTER TABLE ONLY public.food_flow_locations_ouaga
 ALTER TABLE ONLY public.food_flow_locations_ouaga
     ADD CONSTRAINT food_flow_locations_ouaga_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY public.food_flow_locations_spatial
-    ADD CONSTRAINT food_flow_locations_spatial_id_key UNIQUE (id);
+ALTER TABLE ONLY public.food_flow_locations_tamale
+    ADD CONSTRAINT food_flow_locations_tamale_id_key UNIQUE (id);
 
-ALTER TABLE ONLY public.food_flow_locations_spatial
-    ADD CONSTRAINT food_flow_locations_spatial_id_key1 UNIQUE (id);
+ALTER TABLE ONLY public.food_flow_locations_tamale
+    ADD CONSTRAINT food_flow_locations_tamale_id_key1 UNIQUE (id);
 
-ALTER TABLE ONLY public.food_flow_locations_spatial
-    ADD CONSTRAINT food_flow_locations_spatial_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.food_flow_locations_tamale
+    ADD CONSTRAINT food_flow_locations_tamale_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.food_flow_matter
     ADD CONSTRAINT food_flow_matter_pkey PRIMARY KEY (commodity_id);
@@ -604,7 +560,7 @@ ALTER TABLE ONLY public.food_flow_bamako
     ADD CONSTRAINT fk_destination_location FOREIGN KEY (destination) REFERENCES public.food_flow_locations_bamako(id);
 
 ALTER TABLE ONLY public.food_flow
-    ADD CONSTRAINT fk_destination_location FOREIGN KEY (destination) REFERENCES public.food_flow_locations_spatial(id);
+    ADD CONSTRAINT fk_destination_location FOREIGN KEY (destination) REFERENCES public.food_flow_locations_tamale(id);
 
 ALTER TABLE ONLY public.food_flow_ouaga
     ADD CONSTRAINT fk_destination_location FOREIGN KEY (destination) REFERENCES public.food_flow_locations_ouaga(id);
@@ -628,13 +584,24 @@ ALTER TABLE ONLY public.food_flow_bamako
     ADD CONSTRAINT fk_source_location FOREIGN KEY (source) REFERENCES public.food_flow_locations_bamako(id);
 
 ALTER TABLE ONLY public.food_flow
-    ADD CONSTRAINT fk_source_location FOREIGN KEY (source) REFERENCES public.food_flow_locations_spatial(id);
+    ADD CONSTRAINT fk_source_location FOREIGN KEY (source) REFERENCES public.food_flow_locations_tamale(id);
 
 ALTER TABLE ONLY public.food_flow_ouaga
     ADD CONSTRAINT fk_source_location FOREIGN KEY (source) REFERENCES public.food_flow_locations_ouaga(id);
 
 ALTER TABLE ONLY public.food_flow_bamenda
     ADD CONSTRAINT fk_source_location FOREIGN KEY (source) REFERENCES public.food_flow_locations_bamenda(id);
+
+--- fill tables with contents by copying from files (in 'food-flows\PostgreSQL\auxiliary_data')
+---COPY name_of_table
+---	FROM 'path_to_directory/name_of_table.csv'
+---	DELIMITER ';'
+---	CSV HEADER;
+
+--- for spatial tables
+--- load the data (in geojason) into the PostgreSQL/PostGIS databases with the following statement run within the OSGeo4W shell:
+--- ogr2ogr -f "PostgreSQL" PG:"dbname=my_database user=postgress" "path_to_directory\food_flow_locations_tamale.geojson"
+
 
 
 --- generate final dataset
@@ -1450,8 +1417,8 @@ END AS destination_within_urban_boundary,ST_AsText(t.geom) AS destination_geomet
 f.date, f.time, TRIM(FROM f.season) AS season, f.year, f.no_days, f.daytime, f.unit_quantity, f.total_quantity_ls_adjusted AS total_quantity, f.daily_quantity_ls_adjusted AS daily_quantity, m.percent_missing_quantity, f.daily_quantity_ls_adjusted+(f.daily_quantity_ls_adjusted)*m.percent_missing_quantity/100 AS daily_quantity_adjusted_for_missing_locations, 312881 AS population, m.city 
 	FROM dp_food_flow_tle_incl_nullvalues_total_daily_quantity_ls_adjust f
 	LEFT OUTER JOIN dp_missing_data_all_cities m ON f.season=m.season AND f.commodity_name_gen=m.commodity_name_gen AND f.year=m.year
-	LEFT OUTER JOIN food_flow_locations_spatial s ON f.source=s.id
-	LEFT OUTER JOIN food_flow_locations_spatial t ON f.destination=t.id																				
+	LEFT OUTER JOIN food_flow_locations_tamale s ON f.source=s.id
+	LEFT OUTER JOIN food_flow_locations_tamale t ON f.destination=t.id																				
 	WHERE m.city='Tamale'
 UNION ALL
 SELECT f.id AS original_id, f.data_collection_name, f.direction, TRIM(FROM f.transport_new) AS means_of_transport, 
