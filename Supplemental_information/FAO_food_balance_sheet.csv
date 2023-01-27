@@ -1,0 +1,81 @@
+Domain Code;Domain;Area Code (M49);Area;Element Code;Element;Item Code (CPC);Item;Year Code;Year;Unit;Value;Flag;Flag Description
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2511;Wheat and products;2014;2014;kg;10.9;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2807;Rice and products;2014;2014;kg;29.28;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2514;Maize and products;2014;2014;kg;69.86;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2517;Millet and products;2014;2014;kg;51;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2518;Sorghum and products;2014;2014;kg;53.92;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2532;Cassava and products;2014;2014;kg;1.53;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2531;Potatoes and products;2014;2014;kg;0.99;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2533;Sweet potatoes;2014;2014;kg;3.89;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2535;Yams;2014;2014;kg;3.35;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2546;Beans;2014;2014;kg;0;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2552;Groundnuts;2014;2014;kg;14.87;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2601;Tomatoes and products;2014;2014;kg;3.02;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2602;Onions;2014;2014;kg;0;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2611;Oranges and Mandarines;2014;2014;kg;0.31;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2615;Bananas;2014;2014;kg;0.34;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2616;Plantains;2014;2014;kg;0;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2618;Pineapples and products;2014;2014;kg;0.39;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2761;Freshwater Fish;2014;2014;kg;1.07;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2762;Demersal Fish;2014;2014;kg;0;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2511;Wheat and products;2014;2014;kg;17.38;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2807;Rice and products;2014;2014;kg;39.93;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2514;Maize and products;2014;2014;kg;23.47;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2517;Millet and products;2014;2014;kg;4.31;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2518;Sorghum and products;2014;2014;kg;6.41;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2532;Cassava and products;2014;2014;kg;236.39;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2531;Potatoes and products;2014;2014;kg;0.15;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2533;Sweet potatoes;2014;2014;kg;5.09;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2535;Yams;2014;2014;kg;152.54;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2546;Beans;2014;2014;kg;9.21;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2552;Groundnuts;2014;2014;kg;7.06;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2601;Tomatoes and products;2014;2014;kg;15.89;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2602;Onions;2014;2014;kg;4.85;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2611;Oranges and Mandarines;2014;2014;kg;22.93;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2615;Bananas;2014;2014;kg;1.17;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2616;Plantains;2014;2014;kg;128.95;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2618;Pineapples and products;2014;2014;kg;22.82;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2761;Freshwater Fish;2014;2014;kg;4.84;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2762;Demersal Fish;2014;2014;kg;1.22;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2511;Wheat and products;2016;2016;kg;16.45;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2807;Rice and products;2016;2016;kg;73.08;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2514;Maize and products;2016;2016;kg;43.68;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2517;Millet and products;2016;2016;kg;55.1;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2518;Sorghum and products;2016;2016;kg;46.62;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2532;Cassava and products;2016;2016;kg;3.62;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2531;Potatoes and products;2016;2016;kg;7.6;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2533;Sweet potatoes;2016;2016;kg;16.87;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2535;Yams;2016;2016;kg;5.29;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2546;Beans;2016;2016;kg;1.14;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2552;Groundnuts;2016;2016;kg;4.76;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2601;Tomatoes and products;2016;2016;kg;10.51;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2602;Onions;2016;2016;kg;6.81;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2611;Oranges and Mandarines;2016;2016;kg;25.57;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2615;Bananas;2016;2016;kg;9.29;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2616;Plantains;2016;2016;kg;0.91;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2618;Pineapples and products;2016;2016;kg;0.07;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2761;Freshwater Fish;2016;2016;kg;5.9;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2762;Demersal Fish;2016;2016;kg;2;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2511;Wheat and products;2017;2017;kg;22.55;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2807;Rice and products;2017;2017;kg;42.19;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2514;Maize and products;2017;2017;kg;48.05;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2517;Millet and products;2017;2017;kg;3.62;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2518;Sorghum and products;2017;2017;kg;25.25;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2532;Cassava and products;2017;2017;kg;94.63;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2531;Potatoes and products;2017;2017;kg;6.32;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2533;Sweet potatoes;2017;2017;kg;12.94;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2535;Yams;2017;2017;kg;15.17;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2546;Beans;2017;2017;kg;13.53;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2552;Groundnuts;2017;2017;kg;10.43;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2601;Tomatoes and products;2017;2017;kg;48.35;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2602;Onions;2017;2017;kg;11.57;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2611;Oranges and Mandarines;2017;2017;kg;0.07;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2615;Bananas;2017;2017;kg;33.23;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2616;Plantains;2017;2017;kg;52.87;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2618;Pineapples and products;2017;2017;kg;12.94;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2761;Freshwater Fish;2017;2017;kg;1.71;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2762;Demersal Fish;2017;2017;kg;4.46;E;Estimated value
+FBS;Food Balances (2010-);854;Burkina Faso;645;Food supply quantity (kg/capita/yr);S2764;Marine Fish and Other;2014;2014;kg;2.4;E;Estimated value
+FBS;Food Balances (2010-);120;Cameroon;645;Food supply quantity (kg/capita/yr);S2764;Marine Fish and Other;2017;2017;kg;2.32;E;Estimated value
+FBS;Food Balances (2010-);288;Ghana;645;Food supply quantity (kg/capita/yr);S2764;Marine Fish and Other;2014;2014;kg;0.25;E;Estimated value
+FBS;Food Balances (2010-);466;Mali;645;Food supply quantity (kg/capita/yr);S2764;Marine Fish and Other;2016;2016;kg;0.29;E;Estimated value
