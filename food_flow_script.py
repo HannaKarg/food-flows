@@ -194,7 +194,7 @@ plt.show()
 
 ### Transit flows
 #So far, we only looked at inflows and outflows. Transit flows, the third category of flows, are defined as having their source AND destination outside the urban area, i.e., they pass through the city without a stop. This means that transits flows should have been recorded twice, during entry and exit. This is why quantities are divided by 2. The Tamale-Bolagatanga road, however, was not covered in the night during the first survey in 2013. We account for that by not dividing affecting flows by 2 (those flows that were recorded on other roads).
-#We look at transit flows for tomato in Tamale during the lean season.
+# We look at transit flows for tomato in Tamale during the lean season.
 
 # transit flows for aggregated flows (individual flows divided by 2)
 
@@ -229,7 +229,7 @@ df_transits_sum_tomato_lean_tle_sel_columns.sort_values(by=['daily_quantity_tran
 ### Technical validation
 #The following section contains the figures used for assessing the technical validation of the data.
 
-# comparing peak and lean season data (in and outflows) for Tamale
+# comparing peak and lean season data (in- and outflows) for Tamale
 # preparing the data according to type of flow (in, out) and season
 
 df_incoming_lean_tle= df_incoming[(df_incoming['season']=='lean') & (df_incoming['city']=='Tamale')]
