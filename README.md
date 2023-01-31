@@ -4,7 +4,7 @@ Food flow data was collected in West Africa for four cities - Bamako (Mali), Bam
 
 # Data
 
-The dataset is available on zenodo.org. The [Jupyter Notebook] (/food_flow_notebook.ipynb) suggests options for reusing the data. The related Python script (food_flow_script.py, Version 3.9) requires the installation of following packages
+The dataset is available on zenodo.org. The [Jupyter Notebook] (/food-flows/food_flow_notebook.ipynb) suggests options for reusing the data. The related Python script (food_flow_script.py, Version 3.9) requires the installation of following packages
 	`pyproj`
 	`matplotlib`
 	`pandas`	
