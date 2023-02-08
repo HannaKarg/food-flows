@@ -9,10 +9,10 @@ import pyproj
 
 ### Accessing the data
 
-#Here, we access the dataset using the package pandas and convert the original .csv file to a pandas dataframe. Note that encoding has to be defined as 'cp1252'.
+#The dataset is available on Zenodo (https://zenodo.org/record/6423382#.Y-PdQq2ZO3A). We save the dataset to "/my_directory/" and access it using the package pandas, which converts the original .csv file to a pandas dataframe. Note that encoding has to be defined as 'cp1252'.
 
-data_directory="C:/Users/hanna/Documents/papers/UBC/Inputs/data_paper/data/final_record/"
-df=pd.read_csv(data_directory+"final_record_16012023.csv", delimiter=';', encoding='cp1252')
+data_directory="/my_directory/"
+df=pd.read_csv(data_directory+"Food_flow_data_v1.csv", delimiter=';', encoding='cp1252')
 df.head()
 
 #To create a subset of data containing inflows on the one hand and outflows on the other, we extract those rows with the source outside and the destination within the urban boundary for inflows, and vice versa for outflows.
