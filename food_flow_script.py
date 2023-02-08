@@ -309,7 +309,7 @@ plt.show()
 # selected products (item codes codes S2511, S2807, S2514, S2517, S2518, S2532, S2531, S2533, S2535, S2546,
 # S2552, S2601, S2602, S2611, S2615, S2616, S2618), BF: 2014, Ghana: 2014, Mali: 2016, Cameroon: 2017 (available in supplemental_information)
 
-directory_FAO="C:/Users/hanna/Documents/papers/UBC/Inputs/data_paper/data/"
+directory_FAO="/my_directory/"
 df_food_balance_sheet=pd.read_csv(directory_FAO+"FAO_food_balance_sheet.csv", delimiter=';')
 df_food_balance_sheet['Food supply (FAO)']=df_food_balance_sheet['Value']
 
