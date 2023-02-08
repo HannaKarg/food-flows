@@ -1,6 +1,6 @@
 # Food flow study
 
-Food flow data was collected in West Africa for four cities - Bamako (Mali), Bamenda (Cameroon), Ouagadougou (Burkina Faso), and Tamale (Ghana). The data covers, depending on the city, road, rail, boat, and air traffic. Surveys were conducted for one week on average during the peak harvest, lean, and rainy seasons, resulting in a dataset of over 100,000 entries for 46 unprocessed food commodities. The data collected includes information on the key types of transportation used, and quantity, source, and destination of the food flows. They can be used to inform academic and policy discussions on urban food system sustainability, to validate other datasets and to plan humanitarian aid and food security interventions.
+Food flow data were collected in West Africa for four cities - Bamako (Mali), Bamenda (Cameroon), Ouagadougou (Burkina Faso), and Tamale (Ghana). The data covers, depending on the city, road, rail, boat, and air traffic. Surveys were conducted for one week on average during the peak harvest, lean, and rainy seasons, resulting in a dataset of over 100,000 entries for 46 unprocessed food commodities. The data collected includes information on the key types of transportation used, and quantity, source, and destination of the food flows. They can be used to inform academic and policy discussions on urban food system sustainability, to validate other datasets and to plan humanitarian aid and food security interventions.
 
 # Data
 
