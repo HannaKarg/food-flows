@@ -52,8 +52,8 @@ df_outgoing_ouaga_merge=pd.merge(df_outgoing_ouaga_transport_all_sum, df_outgoin
 df_outgoing_ouaga_merge['air_percent_of_total_outgoing']=df_outgoing_ouaga_merge['quantity_air_kg_per_day']*100/df_outgoing_ouaga_merge['daily_quantity_adjusted_for_missing_locations']
 print(df_outgoing_ouaga_merge)
 
-### Fig. 5: Daily per capita inflows (in kg/cap/day) per food group
-#Fig. 5 shows inflows for all four cities aggregated at the level of commodity category (or food group).
+### Fig. 6: Daily per capita inflows (in kg/cap/day) per food group
+#Fig. 6 shows inflows for all four cities aggregated at the level of commodity category (or food group).
 
 df_incoming_lean=df_incoming[((df_incoming['season']=='lean') & (df_incoming['city']=='Ouagadougou')) | ((df_incoming['season']=='lean') & (df_incoming['city']=='Bamako')) | ((df_incoming['season']=='lean') & (df_incoming['city']=='Bamenda')) | ((df_incoming['season']=='lean') & (df_incoming['year']==2014) & (df_incoming['city']=='Tamale'))]
 df_incoming_lean_by_category=df_incoming_lean.groupby(['city', 'commodity_category', 'population'], as_index=False)['daily_quantity_adjusted_for_missing_locations'].sum()
@@ -70,8 +70,8 @@ plt.setp(ax.get_legend().get_texts(), fontsize='8') # for legend text
 plt.setp(ax.get_legend().get_title(), fontsize='10') # for legend title
 plt.show()
 
-### Fig. 6: In- and outflows in kg/day of maize in Tamale (peak season).
-#Fig. 6 plots sources and destinations of maize flows for Tamale (lean season 2014), where the symbol size reflects the absolute quantity (not adjusted by % missing locations).
+### Fig. 7: In- and outflows in kg/day of maize in Tamale (peak season).
+#Fig. 7 plots sources and destinations of maize flows for Tamale (lean season 2014), where the symbol size reflects the absolute quantity (not adjusted by % missing locations).
 #Note that we import the package pyproj to get the country delineation as a basemap. We need to change the directory as the package would otherwise access an existing, but older, version of pyproj in PostGIS.
 
 pyproj.datadir.set_data_dir("C:\\Users\\hanna\\anaconda3\\pkgs\\proj-9.1.0-heca977f_1\\Library\\share\\proj")
@@ -124,8 +124,8 @@ plt.show()
 #gdf1.to_file('/path-to-dir/file_name.GeoJSON', crs='EPSG:4326')
 #gdf2.to_file('/path-to-dir/file_name.GeoJSON', crs='EPSG:4326')
 
-### Fig. 7: Relative inflows of maize (in %) and number of maize source locations along a distance gradient
-#Fig. 7 shows the quantity of maize (in % of total quantity) and number of maize sources (in counts) along a distance gradient aggregated at 10-km intervals. We see that Bamenda sources most of its maize supplies from many nearby sources, while Ouagadougou' major supplier is one city (Bobo-Dioulasso) at a distance of 330 km.
+### Fig. 8: Relative inflows of maize (in %) and number of maize source locations along a distance gradient
+#Fig. 8 shows the quantity of maize (in % of total quantity) and number of maize sources (in counts) along a distance gradient aggregated at 10-km intervals. We see that Bamenda sources most of its maize supplies from many nearby sources, while Ouagadougou' major supplier is one city (Bobo-Dioulasso) at a distance of 330 km.
 
 # aggregate at the level of node and compute percent of total quantity (lean season)
 daily_quantity_sum=df_incoming_lean.groupby(['city','commodity_name_gen', 'season', 'year'], as_index=False)['daily_quantity'].sum()
