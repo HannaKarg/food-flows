@@ -65,7 +65,7 @@ plt.xticks(fontsize=8)
 plt.yticks(fontsize=8)
 plt.ylabel('Quantity (kg/cap/day)',fontsize=10)
 plt.xlabel('Commodity category',fontsize=10)
-plt.title('Food inflows (hot season)')
+plt.title('Food inflows (lean season)')
 plt.setp(ax.get_legend().get_texts(), fontsize='8') # for legend text
 plt.setp(ax.get_legend().get_title(), fontsize='10') # for legend title
 plt.show()
@@ -310,8 +310,9 @@ plt.show()
 # S2552, S2601, S2602, S2611, S2615, S2616, S2618), BF: 2014, Ghana: 2014, Mali: 2016, Cameroon: 2017 (available in supplemental_information)
 
 directory_FAO="/my_directory/"
-df_food_balance_sheet=pd.read_csv(directory_FAO+"FAO_food_balance_sheet.csv", delimiter=';')
+df_food_balance_sheet=pd.read_csv(directory_FAO+"Supplementary_Table_2.csv", delimiter=';')
 df_food_balance_sheet['Food supply (FAO)']=df_food_balance_sheet['Value']
+
 
 # summarise wheat and wheat flour
 
@@ -335,7 +336,7 @@ df_incoming_agg_tle_average_season=df_incoming_agg_tle.groupby(by=['city', 'popu
 df_incoming_agg_other=df_incoming_agg[(df_incoming_agg['city']=='Ouagadougou') | (df_incoming_agg['city']=='Bamako') | (df_incoming_agg['city']=='Bamenda')]
 df_incoming_agg_all=pd.concat([df_incoming_agg_tle_average_season, df_incoming_agg_other])
 df_incoming_agg_average=df_incoming_agg_all.groupby(by=['city', 'population','commodity_name_gen'], as_index= False)['kg_cap_year'].mean()
-df_incoming_agg_average['Average_quantity_in (our data)']=df_incoming_agg_average['kg_cap_year']
+df_incoming_agg_average['Inflows (this dataset)']=df_incoming_agg_average['kg_cap_year']
 
 # out
 
@@ -350,12 +351,12 @@ df_outgoing_agg_tle_average_season=df_outgoing_agg_tle.groupby(by=['city', 'popu
 df_outgoing_agg_other=df_outgoing_agg[(df_outgoing_agg['city']=='Ouagadougou') | (df_outgoing_agg['city']=='Bamako') | (df_outgoing_agg['city']=='Bamenda')]
 df_outgoing_agg_all=pd.concat([df_outgoing_agg_tle_average_season, df_outgoing_agg_other])
 df_outgoing_agg_average=df_outgoing_agg_all.groupby(by=['city', 'population','commodity_name_gen'], as_index= False)['kg_cap_year'].mean()
-df_outgoing_agg_average['Average_quantity_out (our data)']=df_outgoing_agg_average['kg_cap_year']
+df_outgoing_agg_average['Outflows (this dataset)']=df_outgoing_agg_average['kg_cap_year']
 
 # balance
 
 df_in_out_agg_average=pd.merge(df_incoming_agg_average, df_outgoing_agg_average, how='left', on=['city', 'commodity_name_gen'])
-df_in_out_agg_average['Net balance (our data)']=df_in_out_agg_average['Average_quantity_in (our data)']-df_in_out_agg_average['Average_quantity_out (our data)']
+df_in_out_agg_average['Net inflows (this dataset)']=df_in_out_agg_average['Inflows (this dataset)']-df_in_out_agg_average['Outflows (this dataset)']
 
 df_in_out_agg_average['Item Code (CPC)']=''
 df_in_out_agg_average['Area Code (M49)']=999
@@ -385,11 +386,11 @@ df_in_out_agg_average.loc[df_in_out_agg_average['city']=='Bamenda', 'Area Code (
 join_data_balance_with_FAO_food_balance=pd.merge(df_in_out_agg_average, df_food_balance_sheet, how='inner', on=["Item Code (CPC)", "Area Code (M49)"])
 
 # variation in %
-join_data_balance_with_FAO_food_balance['variation_percent']=(join_data_balance_with_FAO_food_balance['Net balance (our data)']-join_data_balance_with_FAO_food_balance['Food supply (FAO)'])*100/join_data_balance_with_FAO_food_balance['Net balance (our data)']
+join_data_balance_with_FAO_food_balance['variation_percent']=(join_data_balance_with_FAO_food_balance['Net inflows (this dataset)']-join_data_balance_with_FAO_food_balance['Food supply (FAO)'])*100/join_data_balance_with_FAO_food_balance['Net inflows (this dataset)']
 join_data_balance_with_FAO_food_balance.head()
 
 # plot
-join_data_balance_with_FAO_food_balance_melt=join_data_balance_with_FAO_food_balance.melt(id_vars=['city', 'commodity_name_gen'], value_vars=['Average_quantity_in (our data)', 'Net balance (our data)', 'Food supply (FAO)'])
+join_data_balance_with_FAO_food_balance_melt=join_data_balance_with_FAO_food_balance.melt(id_vars=['city', 'commodity_name_gen'], value_vars=['Inflows (this dataset)', 'Net inflows (this dataset)', 'Food supply (FAO)'])
 join_data_balance_with_FAO_food_balance['city'].unique()
 
 palette={'Average_quantity_in (our data)': "#FFE599", 'Net balance (our data)': "#ED553B", 'Food supply (FAO)': "#20639B"}
