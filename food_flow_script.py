@@ -393,7 +393,7 @@ join_data_balance_with_FAO_food_balance.head()
 join_data_balance_with_FAO_food_balance_melt=join_data_balance_with_FAO_food_balance.melt(id_vars=['city', 'commodity_name_gen'], value_vars=['Inflows (this dataset)', 'Net inflows (this dataset)', 'Food supply (FAO)'])
 join_data_balance_with_FAO_food_balance['city'].unique()
 
-palette={'Average_quantity_in (our data)': "#FFE599", 'Net balance (our data)': "#ED553B", 'Food supply (FAO)': "#20639B"}
+palette={'Inflows (this dataset)': "#FFE599", 'Net inflows (this dataset)': "#ED553B", 'Food supply (FAO)': "#20639B"}
 
 fig, axs = plt.subplots(4, sharex=True, figsize=(13, 15))
 for count, city in enumerate(join_data_balance_with_FAO_food_balance_melt['city'].unique()):
